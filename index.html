@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta charset="utf-8">
-<title>ORIGIN · Silicon Die</title>
+<title>ORIGIN · SPEC</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -467,6 +467,104 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
 .ab-k{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blk-dim)}
 #datasheet .about-body .ab-card p{margin:0!important;color:#1d1d1b!important;text-shadow:none!important;font-size:16px;line-height:1.7}
 @media (max-width:820px){#datasheet .about-body{grid-template-columns:1fr}}
+/* =========================================================
+   STATIC CONTAINERS — no reveal, skew, lift or tilt motion
+   ========================================================= */
+.fx .rv, .fx .rv.pre, .fx .rv.pre.l, .fx .rv.pre.r, .fx .rv.pre.z{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+.blk>.wrap, .band{transform:none!important;opacity:1!important}
+.ev, .ev:hover, .ab-card, .ab-card:hover, .cert, .cert:hover, .port, .port:hover,
+.pc .frame, .pc:hover .frame, .sp-card, .sp-info, .sp-card:hover .sp-info,
+.ph, .ph:hover, .ph:focus-visible, .chipset li{transform:none!important;transition:background .25s,color .25s,border-color .25s,box-shadow .25s!important}
+.ph:nth-child(n){--rot:0deg!important;--ty:0px!important}
+.ev-media img, .ev:hover .ev-media img, .pc .frame img, .pc:hover .frame img, .sp-card img, .sp-card:hover img{transform:none!important}
+.ic.on .pkg, .ic.on .ini, .ic.on .legs{animation:none!important}
+.sp-corner, .sp-card:hover .sp-corner{width:2rem!important;height:2rem!important}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+.menu-btn{display:none}
+@media (max-width:780px){
+  .nav{padding-block:10px;background:rgba(0,0,0,.92)!important;backdrop-filter:blur(8px)}
+  .brand span{font-size:14px}
+  .college img{height:30px!important}
+  .menu-btn{display:grid;place-content:center;gap:6px;width:44px;height:44px;border:1.5px solid var(--line);border-radius:10px;background:transparent;cursor:pointer;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);transition:transform .25s}
+  .nav.open .menu-btn span:first-child{transform:translateY(4px) rotate(45deg)}
+  .nav.open .menu-btn span:last-child{transform:translateY(-4px) rotate(-45deg)}
+  .nav ul{display:none!important}
+  .nav.open ul{display:flex!important;flex-direction:column;gap:0;position:absolute;left:0;right:0;top:100%;background:#000;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px var(--gr) 14px var(--gl)}
+  .nav.open ul a{display:block;padding:13px 2px;font-size:16px;color:var(--ink);border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav.open ul li:last-child a{border-bottom:0}
+  .rail,.hud{display:none!important}
+
+  /* hero */
+  .hero{padding-block:calc(84px + env(safe-area-inset-top,0px)) 32px!important}
+  .hero .hero-grid{min-height:calc(100svh - 116px)!important;justify-content:flex-start!important;gap:22px!important}
+  .hero .lbl{font-size:10.5px;line-height:1.6}
+  .hero .word{font-size:clamp(54px,17vw,84px)!important;max-width:none!important}
+  .h-bot{max-width:none!important;margin-top:auto}
+  .h-bot .lede{font-size:16px;max-width:none}
+  .h-bot .btns{width:100%}
+  .h-bot .btns .btn{flex:1;text-align:center;justify-content:center;white-space:nowrap;padding:14px 12px;font-size:13px}
+  .cue{display:none}
+
+  section.blk{padding-block:56px}
+  .plain{font-size:28px!important;margin-bottom:24px!important}
+  .band .track{font-size:16px}
+
+  /* about */
+  #datasheet .about-copy p.big{font-size:18px!important}
+  .ab-card{padding:18px}
+  #datasheet .about-body .ab-card p{font-size:15px}
+  .tw{overflow-x:auto}
+  .pins{font-size:13.5px}
+  .pins td:nth-child(3),.pins th:nth-child(3){display:none}
+
+  /* events / certificates */
+  .ev h3{font-size:20px}
+  .cert-lead .q{font-size:28px}
+
+  /* support */
+  .sp-head{flex-direction:column;align-items:flex-start}
+  .sp-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px}
+  .sp-info{padding:12px}
+  .sp-info h3{font-size:12.5px;letter-spacing:.03em}
+  .sp-info p{font-size:12px}
+
+  /* crew */
+  .leads .g3,.g6{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:12px!important;row-gap:22px!important}
+  .g6 .pc:nth-child(even){margin-top:0!important}
+  .pc h3{font-size:15px}
+  .pc .tagr:not(:empty){font-size:10px;padding:3px 8px}
+
+  /* gallery */
+  .collage{display:block!important;columns:2;column-gap:12px}
+  .collage .brk{display:none}
+  .ph{display:block;margin:0 0 14px!important;padding:6px 6px 8px;break-inside:avoid}
+  .ph figcaption b{font-size:12.5px;white-space:normal}
+  .ph figcaption span{display:none}
+  .ph::before{width:36px;height:12px;top:-6px}
+  .ph::after{font-size:9px;top:10px;right:10px}
+
+  /* reels */
+  .rl{--h:min(64vh,560px)}
+  .rl-item.is-land .rl-media{width:88vw!important}
+  .rl-track{gap:12px}
+  .rl-nav{width:40px;height:40px;top:calc(18px + var(--h)/2)}
+  .rl-item.is-land ~ .rl-nav{top:50%}
+  .rl-prev{left:-6px}.rl-next{right:-6px}
+  .rl-bar{flex-direction:column;align-items:flex-start}
+  .rl-dots{flex-wrap:wrap}
+  .rl-snd{font-size:11px;padding:6px 10px}
+
+  /* connect + footer */
+  .bus{grid-template-columns:1fr!important}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:380px){.sp-grid,.leads .g3,.g6{gap:10px!important}.hero .word{font-size:52px!important}}
+#gl{transition:opacity .6s ease}
+@media (max-width:780px){.h-bot{position:relative}.h-bot::before{content:"";position:absolute;inset:-28px -16px -16px;background:linear-gradient(transparent,rgba(0,0,0,.75) 30%);z-index:-1}}
 </style>
 </head>
 <body>
@@ -477,9 +575,10 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
 <div class="hud" aria-hidden="true"><span id="hudN">01</span><i></i><span id="hudT">ORIGIN</span></div>
 <div class="rail" aria-hidden="true"><i id="railFill"></i><b id="railDot"></b></div>
 
-<header class="nav">
+<header class="nav" id="siteNav">
   <div class="brands"><a class="brand" href="#top"><img src="assets/origin-logo.png" alt=""><span>ORIGIN.</span></a><span class="sep" aria-hidden="true"></span><span class="college"><img src="assets/spec-logo.png" alt="St. Peter's Engineering College"></span></div>
   <ul><li><a href="#datasheet">About</a></li><li><a href="#events">Events</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#support">Support</a></li><li><a href="#crew">Crew</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reels">Reels</a></li><li><a href="#bus">Connect</a></li></ul>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span></button>
 </header>
 
 <main id="top">
@@ -1067,7 +1166,7 @@ const REELS = [
     });
     pg.attributes.position.needsUpdate = true; pg.attributes.alpha.needsUpdate = true;
     window.__scenery && window.__scenery(t, dt);
-    const C = window.__cam || { R: small()?30:20, el:.95, az:0, lx: small()?0:-6, ly: small()?10:-1.5 };
+    const C = window.__cam || { R: small()?30:20, el:.95, az:0, lx: small()?0:-6, ly: small()?1.5:-1.5 };
     if (!cam) cam = Object.assign({}, C);
     for (const k in C) cam[k] += (C[k]-cam[k]) * (reduce ? 1 : .07);
     const az = -.5 + cam.az + mx*.6 + (reduce?0:t*.03), el = Math.max(.12, Math.min(1.52, cam.el - my*.15)), R = cam.R;
@@ -1174,7 +1273,7 @@ const REELS = [
   const KF = () => {
     const m = isSmall();
     return [
-      { R: m?30:20, el:.95, az:0,   lx: m?0:-6, ly: m?10:-1.5 },   // hero
+      { R: m?30:20, el:.95, az:0,   lx: m?0:-6, ly: m?1.5:-1.5 },   // hero
       { R: m?30:24, el:.42, az:1.0, lx: m?0:-2, ly: m?6:5 },                    // after hero: board low
       { R: m?30:24, el:.42, az:1.9, lx: m?0:-2, ly: m?6:5 },         // about: board low, under the text
       { R: m?34:26, el:1.5, az:2.6, lx:0, ly:0 },                    // crew: top-down
@@ -1218,7 +1317,8 @@ const REELS = [
     let cur = 0; secs.forEach(([el],i) => { if (el.getBoundingClientRect().top < vh*.5) cur = i; });
     if (cur !== hudI){ hudI = cur; hudT.classList.add("swap"); setTimeout(() => { hudT.textContent = secs[cur][1]; hudN.textContent = String(cur+1).padStart(2,"0"); hudT.classList.remove("swap"); }, 180); }
   }
-  (function loop(){ choreo(); requestAnimationFrame(loop); })();
+  const glc = document.getElementById("gl");
+  (function loop(){ choreo(); if (glc) glc.style.opacity = (innerWidth < 780 && scrollY > innerHeight*.55) ? ".3" : "1"; requestAnimationFrame(loop); })();
 
   // smooth inertial scrolling
   if (window.Lenis && !reduce){
@@ -1229,6 +1329,16 @@ const REELS = [
       if (el === null) return; e.preventDefault(); lenis.scrollTo(el, { offset: id === "#top" ? 0 : -40, duration: 1.6 });
     }));
   }
+})();
+
+/* mobile menu */
+(function(){
+  const nav = document.getElementById("siteNav"), btn = document.getElementById("menuBtn");
+  if (!nav || !btn) return;
+  const set = o => { nav.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); btn.setAttribute("aria-label", o ? "Close menu" : "Open menu"); };
+  btn.addEventListener("click", () => set(!nav.classList.contains("open")));
+  nav.querySelectorAll("ul a").forEach(a => a.addEventListener("click", () => set(false)));
+  addEventListener("keydown", e => { if (e.key === "Escape") set(false); });
 })();
 </script>
 
