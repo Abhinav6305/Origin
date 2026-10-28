@@ -565,6 +565,13 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
 @media (max-width:380px){.sp-grid,.leads .g3,.g6{gap:10px!important}.hero .word{font-size:52px!important}}
 #gl{transition:opacity .6s ease}
 @media (max-width:780px){.h-bot{position:relative}.h-bot::before{content:"";position:absolute;inset:-28px -16px -16px;background:linear-gradient(transparent,rgba(0,0,0,.75) 30%);z-index:-1}}
+.pc .soc{display:flex;gap:8px;margin-top:8px}
+.pc .soc a{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--wht);color:var(--blk);border:1.5px solid var(--wht);transition:background .2s,color .2s}
+.pc .soc a svg{width:15px;height:15px}
+.pc .soc a:hover,.pc .soc a:focus-visible{background:var(--blk);color:var(--wht)}
+@media (max-width:780px){.pc .soc a{width:30px;height:30px}}
+.pc .soc a.soon{opacity:.45;cursor:default}
+.pc .soc a.soon:hover{background:var(--wht);color:var(--blk)}
 </style>
 </head>
 <body>
@@ -801,17 +808,17 @@ const PEOPLE = {
     { name: "Harith Reddy", role: "Faculty Coordinator", photo: "assets/team/harith-reddy.jpg" }
   ],
   heads: [
-    { name: "K. Aishwarya", role: "President", photo: "assets/team/aishwarya.jpg" },
-    { name: "M. Rakesh", role: "Secretary", photo: "assets/team/rakesh.jpg" },
-    { name: "P. Nishank", role: "Joint Secretary", photo: "assets/team/nishank.jpg" }
+    { name: "K. Aishwarya", role: "President", photo: "assets/team/aishwarya.jpg", ig: "https://www.instagram.com/aishwaryaa.kavidiiii/", li: "https://www.linkedin.com/in/a15kav-767bab30a/" },
+    { name: "M. Rakesh", role: "Secretary", photo: "assets/team/rakesh.jpg", ig: "https://www.instagram.com/rakesh0040e/", li: "https://www.linkedin.com/in/rakesh0040e/" },
+    { name: "P. Nishank", role: "Joint Secretary", photo: "assets/team/nishank.jpg", ig: "https://www.instagram.com/__pogaku/", li: "https://www.linkedin.com/in/nishank-pogaku-409554317/" }
   ],
   members: [
-    { name: "S. Abhinav Rishi", photo: "assets/team/abhinav-rishi.jpg" }, { name: "Shlok Karn", photo: "assets/team/shlok-karn.jpg" },
-    { name: "Trideepa", photo: "assets/team/trideepa.jpg" }, { name: "Manashi", photo: "assets/team/manashi.jpg" },
-    { name: "Gayathri", photo: "assets/team/gayathri.jpg" }, { name: "Shravya", photo: "assets/team/shravya.jpg" },
-    { name: "Mohit", photo: "assets/team/mohit.jpg" }, { name: "Sai Charan", photo: "assets/team/sai-charan.png" },
-    { name: "Sri Charan", photo: "assets/team/sri-charan.jpg" }, { name: "Rahul", photo: "assets/team/rahul.jpg" },
-    { name: "Hitesh", photo: "assets/team/hitesh.jpg" }, { name: "Bhanu Prakash", photo: "assets/team/bhanu-prakash.jpg" }
+    { name: "S. Abhinav Rishi", photo: "assets/team/abhinav-rishi.jpg", ig: "https://www.instagram.com/abhinav__rishi/", li: "https://www.linkedin.com/in/abhinavrishisaka/" }, { name: "Shlok Karn", photo: "assets/team/shlok-karn.jpg", ig: "https://www.instagram.com/being._.karn/", li: "https://www.linkedin.com/in/shlok-karn-809993360/" },
+    { name: "Trideepa", photo: "assets/team/trideepa.jpg", ig: "https://www.instagram.com/trideepa.__/", li: "https://www.linkedin.com/in/chintha-trideepa-8291a933b/" }, { name: "Manashi", photo: "assets/team/manashi.jpg", ig: "https://www.instagram.com/ashixmlwr/", li: "https://www.linkedin.com/in/manashi-chakraborty-a09073437/" },
+    { name: "Gayathri", photo: "assets/team/gayathri.jpg", ig: "https://www.instagram.com/gayathri.___.16/", li: "https://www.linkedin.com/in/gayathri-vangapandu-768029366/" }, { name: "Shravya", photo: "assets/team/shravya.jpg", ig: "https://www.instagram.com/sravyaa_yadav_/", li: "https://www.linkedin.com/in/boina-sravya-63405538a/" },
+    { name: "Mohit", photo: "assets/team/mohit.jpg", ig: "", li: "" }, { name: "Sai Charan", photo: "assets/team/sai-charan.png", ig: "", li: "" },
+    { name: "Sri Charan", photo: "assets/team/sri-charan.jpg", ig: "https://www.instagram.com/charan._30/", li: "https://www.linkedin.com/in/sricharanveluri/" }, { name: "Rahul", photo: "assets/team/rahul.jpg", ig: "", li: "" },
+    { name: "Hitesh", photo: "assets/team/hitesh.jpg", ig: "", li: "" }, { name: "Bhanu Prakash", photo: "assets/team/bhanu-prakash.jpg", ig: "https://www.instagram.com/n.bhanu_786/", li: "https://www.linkedin.com/in/bhanu-prakash-nanduri-769a32372/" }
   ].map(p => ({ role: "Member", ...p }))
 };
 const initials = n => { const w = n.replace(/^Dr\.\s*/,"").split(/\s+/).filter(Boolean); return (w[0][0] + (w.length>1 ? w[w.length-1][0] : "")).toUpperCase(); };
@@ -821,6 +828,17 @@ function card(p){
   a.querySelector(".tagr").textContent = p.role === "Member" ? "" : p.role;
   a.querySelector(".ini").textContent = initials(p.name);
   a.querySelector("h3").textContent = p.name; a.querySelector(".r").textContent = p.role;
+  if ("ig" in p || "li" in p){
+    const soc = document.createElement("div"); soc.className = "soc";
+    const IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+    const LI = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>';
+    [[p.ig,"Instagram",IG],[p.li,"LinkedIn",LI]].forEach(([u,l,ic]) => {
+      const x = document.createElement("a"); x.className = "soc-" + l.toLowerCase(); x.innerHTML = ic;
+      if (u){ x.href = u; x.target = "_blank"; x.rel = "noopener"; x.setAttribute("aria-label", p.name + " on " + l); x.title = l; }
+      else { x.classList.add("soon"); x.setAttribute("aria-disabled","true"); x.setAttribute("aria-label", p.name + " on " + l + " (coming soon)"); x.title = l + " · coming soon"; }
+      soc.appendChild(x); });
+    a.querySelector(".cap").appendChild(soc);
+  }
   if (p.photo){ const i = new Image(); i.alt = p.name; i.src = p.photo; i.loading="lazy"; i.onerror=()=>{ i.remove(); a.classList.remove("has"); }; a.classList.add("has"); a.querySelector(".frame").prepend(i); }
   return a;
 }
