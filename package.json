@@ -1,0 +1,16 @@
+{
+  "name": "origin-site",
+  "private": true,
+  "description": "ORIGIN website + HACK-A-THON 2.0 portal (Vercel functions in /api, data in Azure Cosmos DB + Blob Storage)",
+  "engines": { "node": "20.x" },
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "test": "node tests/api.test.js",
+    "hash-password": "node scripts/hash-password.js"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "@azure/storage-blob": "^12.24.0",
+    "qrcode": "^1.5.4"
+  }
+}

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Dashboard · HACK-A-THON 2.0</title>
+<meta name="theme-color" content="#030303">
+<link rel="icon" href="assets/origin-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030303;--ink:#f2f2ef;--dim:#9a9a95;--faint:#3a3a37;--line:rgba(242,242,239,.16);--wht:#fff;--blk:#050505;--blk-dim:#4a4a48;--err:#ff8a7a;
+  --disp:"Anton","Impact","Arial Narrow",sans-serif;--body:"Poppins","Helvetica Neue",Arial,sans-serif;--gx:clamp(16px,4vw,48px)}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--body);-webkit-font-smoothing:antialiased;min-height:100svh}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--wht);outline-offset:3px}
+#frame{position:fixed;inset:0;z-index:0;pointer-events:none;background:#050505 no-repeat center/100% 100%}
+.shade{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,rgba(3,3,3,.35),rgba(3,3,3,.75))}
+header,main,footer{position:relative;z-index:1}
+.wrap{max-width:880px;margin-inline:auto;padding-inline:var(--gx)}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:30px;width:auto}.brand i{width:1px;height:24px;background:var(--line)}
+.back{font-size:13px;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line)}
+.back:hover{color:var(--ink)}
+
+main{padding:clamp(28px,5vw,56px) 0 80px}
+.kick{font-family:var(--disp);font-size:clamp(16px,2vw,22px);letter-spacing:.02em;color:var(--dim)}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,8vw,92px);line-height:.92;margin-top:6px}
+h1 .v2{color:transparent;-webkit-text-stroke:clamp(1.5px,.25vw,3px) var(--wht);margin-left:.15em}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(30px,4.4vw,48px);line-height:1}
+.lead{color:var(--dim);margin-top:10px;max-width:620px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 24px;font-weight:600;font-size:15px;border:1.5px solid var(--wht);background:transparent;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,opacity .2s}
+.btn.solid{background:var(--wht);color:var(--blk)}
+.btn.solid:hover{background:transparent;color:var(--wht)}
+.btn.ghost:hover{background:var(--wht);color:var(--blk)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.big{min-height:56px;padding:14px 34px;font-size:16px}
+
+/* intro */
+.intro-card{margin-top:34px;border:1px solid var(--line);background:rgba(11,11,10,.86)}
+.flow{display:grid;grid-template-columns:repeat(3,1fr)}
+.flow div{padding:22px 22px 24px;border-left:1px solid var(--line)}
+.flow div:first-child{border-left:0}
+.flow b{font-family:var(--disp);font-weight:400;font-size:36px;line-height:1;color:transparent;-webkit-text-stroke:1.3px var(--ink)}
+.flow h3{font-size:16px;margin-top:10px}.flow p{font-size:13.5px;color:var(--dim);margin-top:2px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;padding:16px 22px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim)}
+.facts span b{color:var(--ink);font-weight:600}
+.intro-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:30px}
+.intro-cta small{color:var(--dim);font-size:13px}
+
+/* stepper */
+.steps{display:flex;border:1px solid var(--line);background:rgba(3,3,3,.75);margin:30px 0 22px;list-style:none}
+.steps li{flex:1;padding:12px 14px;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--dim);border-left:1px solid var(--line);display:flex;gap:8px;align-items:baseline}
+.steps li:first-child{border-left:0}
+.steps li span{font-family:var(--disp);font-weight:400;font-size:18px;letter-spacing:0}
+.steps li em{font-style:normal}
+.steps li.on{background:var(--wht);color:var(--blk)}
+.steps li.done{color:var(--ink)}
+.panel{border:1px solid var(--line);background:rgba(11,11,10,.9);padding:clamp(20px,3.5vw,34px)}
+.panel>h2+p{color:var(--dim);margin-top:6px;font-size:14px}
+.round{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;padding:3px 9px;background:var(--wht);color:var(--blk);margin-bottom:10px}
+
+.field{display:grid;gap:6px;margin-top:20px}
+.field>label,.legend{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.field input[type=text],.field input[type=email]{width:100%;min-height:48px;padding:11px 14px;font-size:16px;background:#0c0c0b;border:1.5px solid var(--faint);color:var(--ink);border-radius:0;transition:border-color .2s}
+.field input:focus{outline:none;border-color:var(--wht)}
+.field input:disabled{opacity:.6}
+.field.bad input,.field.bad .seg,.field.bad .drop{border-color:var(--err)}
+.field .err{font-size:12.5px;color:var(--err)}
+.field .err:empty{display:none}
+.hint{font-size:12.5px;color:var(--dim)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+
+.seg{display:flex;border:1.5px solid var(--faint);width:max-content;max-width:100%}
+.seg button{min-width:64px;min-height:46px;padding:8px 16px;background:transparent;border:0;border-left:1.5px solid var(--faint);cursor:pointer;font-weight:600;color:var(--dim);transition:background .2s,color .2s}
+.seg button:first-child{border-left:0}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-checked="true"]{background:var(--wht);color:var(--blk)}
+.seg.big button{min-width:84px;font-family:var(--disp);font-weight:400;font-size:24px}
+
+.member{border:1px solid var(--line);padding:18px 20px 22px;margin-top:18px;background:rgba(3,3,3,.55)}
+.member:first-child{margin-top:22px}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.mh b{font-family:var(--disp);font-weight:400;font-size:24px;letter-spacing:.01em}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.16em;padding:3px 8px;border:1px solid var(--line);color:var(--dim)}
+.tag.lead{background:var(--wht);color:var(--blk);border-color:var(--wht)}
+.member .field{margin-top:14px}
+.same{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim);margin-top:10px;cursor:pointer}
+.same input{width:18px;height:18px;accent-color:#fff}
+
+.drop{margin-top:2px;border:1.5px dashed var(--faint);padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;display:grid;gap:6px;justify-items:center}
+.drop:hover,.drop.over{border-color:var(--wht);background:rgba(255,255,255,.03)}
+.drop svg{width:34px;height:34px;stroke:var(--ink);fill:none;stroke-width:1.5}
+.drop strong{font-size:15px}.drop span{font-size:13px;color:var(--dim)}
+.file{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:var(--wht);color:var(--blk)}
+.file b{font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file small{color:var(--blk-dim);font-size:12.5px}
+.file button{background:none;border:1px solid var(--blk);color:var(--blk);padding:6px 12px;font-size:13px;cursor:pointer;flex:none}
+
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:28px;flex-wrap:wrap}
+.actions .btn{min-width:140px}
+.formerr{margin-top:16px;padding:12px 14px;border:1px solid var(--err);color:var(--err);font-size:14px}
+
+/* review */
+.sum{margin-top:18px;border:1px solid var(--line)}
+.sum .row{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line);font-size:14.5px}
+.sum .row:first-child{border-top:0}
+.sum .row>span{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:2px}
+.sum table{width:100%;border-collapse:collapse;font-size:13.5px}
+.sum th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:0 8px 6px 0}
+.sum td{padding:6px 8px 6px 0;border-top:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.sum td small{color:var(--dim)}
+.edit{background:none;border:0;border-bottom:1px solid var(--line);color:var(--dim);font-size:13px;cursor:pointer;padding:0;margin-left:6px}
+.edit:hover{color:var(--ink)}
+.confirm{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:14px;cursor:pointer}
+.confirm input{width:18px;height:18px;margin-top:3px;accent-color:#fff;flex:none}
+.prog{height:6px;background:var(--faint);margin-top:16px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--wht);transition:width .2s}
+
+/* done */
+.done{text-align:center;padding:clamp(34px,6vw,64px) clamp(20px,4vw,48px)}
+.done .badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1.5px solid var(--wht);font-weight:700;letter-spacing:.2em;font-size:12.5px}
+.done .badge i{width:9px;height:9px;border-radius:50%;background:var(--wht);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.done h2{font-size:clamp(36px,6vw,64px);margin-top:22px}
+.done p{color:var(--dim);max-width:520px;margin:12px auto 0;font-size:16px}
+.done .ref{display:inline-grid;grid-template-columns:auto auto;gap:6px 18px;text-align:left;margin-top:26px;padding:16px 20px;background:var(--wht);color:var(--blk);font-size:14px;max-width:100%}
+.done .ref span{color:var(--blk-dim);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
+.done .ref b{font-weight:700;overflow-wrap:anywhere}
+.done .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+
+footer{border-top:1px solid var(--line);padding:22px var(--gx);font-size:12px;color:var(--dim);text-align:center;background:rgba(3,3,3,.8)}
+
+@media (max-width:640px){
+  .flow{grid-template-columns:1fr}
+  .flow div{border-left:0;border-top:1px solid var(--line)}.flow div:first-child{border-top:0}
+  .grid2{grid-template-columns:1fr}
+  .steps li{flex-direction:column;gap:0;padding:9px 8px;font-size:10.5px;letter-spacing:.04em}
+  .sum .row{grid-template-columns:1fr;gap:2px}
+  .sum thead{display:none}.sum tr{display:grid;padding:6px 0;border-top:1px solid var(--line)}.sum td{border:0;padding:1px 0}
+  .seg{width:100%}.seg button{flex:1;min-width:0;padding:8px 6px}
+  .actions .btn{flex:1;min-width:0}
+  .brand i,.brand img+i+img{display:none}
+}
+@media print{#frame,.shade,header,footer,.btns{display:none}body{background:#fff;color:#000}.panel{border:0}}
+@media (prefers-reduced-motion:reduce){.done .badge i{animation:none}}
+
+/* ---------- dashboard ---------- */
+.stages{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:rgba(3,3,3,.75);margin:26px 0 22px;list-style:none}
+.stages li{padding:14px 14px 16px;border-left:1px solid var(--line);color:var(--dim)}
+.stages li:first-child{border-left:0}
+.stages b{display:block;font-family:var(--disp);font-weight:400;font-size:20px;letter-spacing:.02em;color:var(--dim)}
+.stages small{font-size:12px}
+.stages li.done b{color:var(--ink)} .stages li.done small{color:var(--ok)}
+.stages li.now{background:var(--wht);color:var(--blk)} .stages li.now b{color:var(--blk)} .stages li.now small{color:var(--blk-dim);font-weight:600}
+.stages li.bad small{color:var(--err)}
+:root{--ok:#9be59b;--wait:#f2d27a}
+.state{display:flex;gap:16px;align-items:flex-start}
+.state .dot{flex:none;width:12px;height:12px;border-radius:50%;margin-top:12px;background:var(--wait)}
+.state.ok .dot{background:var(--ok)} .state.bad .dot{background:var(--err)}
+.state h2{font-size:clamp(28px,4vw,40px)}
+.state p{color:var(--dim);margin-top:6px;max-width:560px}
+.selected{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.18em;padding:5px 12px;background:var(--wht);color:var(--blk);margin-bottom:12px}
+.paygrid{display:grid;grid-template-columns:280px 1fr;gap:clamp(20px,4vw,40px);margin-top:24px;align-items:start}
+.qr{background:#fff;padding:14px;border:1.5px solid var(--wht)}
+.qr svg{display:block;width:100%;height:auto}
+.qr p{color:#111;text-align:center;font-size:12.5px;margin-top:8px;font-weight:600;letter-spacing:.04em}
+.amount{font-family:var(--disp);font-weight:400;font-size:clamp(48px,7vw,72px);line-height:1}
+.calc{color:var(--dim);font-size:14px;margin-top:4px}
+.howto{margin-top:18px;padding-left:20px;color:var(--ink);font-size:14.5px;display:grid;gap:6px}
+.upi{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:16px;font-size:14px}
+.upi code{background:#0c0c0b;border:1px solid var(--faint);padding:6px 10px;font-size:14px}
+.copy{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;font-size:13px;cursor:pointer}
+.applink{display:none}
+.test{border:1.5px dashed var(--wait);color:var(--wait);padding:10px 14px;font-size:13.5px;margin-top:16px}
+.notice{border:1px solid var(--err);color:var(--err);padding:12px 14px;font-size:14px;margin-top:16px}
+.idcard{margin-top:22px;background:var(--wht);color:var(--blk);padding:22px 24px;display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between}
+.idcard small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.18em;color:var(--blk-dim)}
+.idcard b{font-family:var(--disp);font-weight:400;font-size:clamp(40px,7vw,64px);letter-spacing:.04em;line-height:1}
+.idcard .btn{border-color:var(--blk)}
+.idcard .btn.solid{background:var(--blk);color:var(--wht)}
+.kv2{display:grid;grid-template-columns:140px 1fr;gap:8px 16px;margin-top:20px;font-size:14.5px}
+.kv2 span{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:2px}
+.kv2 div{overflow-wrap:anywhere}
+.signin{max-width:520px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar button{background:none;border:0;border-bottom:1px solid var(--line);color:var(--dim);cursor:pointer;font-size:13px;padding:0}
+@media (max-width:760px){.paygrid{grid-template-columns:1fr}.qr{max-width:300px;margin-inline:auto}.applink{display:inline-flex}}
+@media (max-width:640px){.stages{grid-template-columns:1fr 1fr}.stages li:nth-child(3){border-left:0}.stages li:nth-child(n+3){border-top:1px solid var(--line)}.kv2{grid-template-columns:1fr;gap:2px}.kv2 span{margin-top:8px}}
+
+html,body{overflow-x:clip}
+a.back{min-height:44px;display:inline-flex;align-items:center}
+label{min-height:24px}
+input,select,textarea{font-size:16px}
+img,canvas{max-width:100%;height:auto}
+
+/* bigger, more legible logos */
+.brand{gap:18px}
+.brand img.o{height:46px!important}
+.brand img.s{height:54px!important;opacity:1}
+.brand i{height:40px}
+footer .brand img.o{height:64px!important}
+footer .brand img.s{height:76px!important}
+@media (max-width:760px){.brand{gap:12px}.brand img.o{height:38px!important}.brand img.s,.brand i{display:block!important}.brand img.s{height:44px!important}.brand i{height:32px}footer .brand img.o{height:52px!important}footer .brand img.s{height:62px!important}}
+.brand img{height:46px!important}.brand img+i+img{height:54px!important}
+@media (max-width:760px){.brand img{height:38px!important}.brand i,.brand img+i+img{display:block!important}.brand img+i+img{height:44px!important}}
+</style>
+</head>
+<body>
+<div id="frame" aria-hidden="true"></div><div class="shade" aria-hidden="true"></div>
+
+<header><div class="wrap">
+  <a class="brand" href="index.html" aria-label="HACK-A-THON 2.0 home"><img src="assets/origin-logo.png" alt="ORIGIN"><i></i><img src="assets/spec-logo.png" alt="St. Peter's Engineering College"></a>
+  <a class="back" href="index.html">← Back to HACK-A-THON 2.0</a>
+</div></header>
+
+<main><div class="wrap">
+  <p class="kick">TEAM DASHBOARD</p>
+  <h1>HACK-A-THON<span class="v2">2.0</span></h1>
+
+  <!-- SIGN IN -->
+  <section id="signin" class="signin" hidden>
+    <p class="lead">Check your team's status, complete payment once you're selected, and get your Team ID.</p>
+    <form class="panel" id="signForm" novalidate style="margin-top:26px">
+      <div class="field" id="f-ref"><label for="ref">Reference code</label><input type="text" id="ref" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="8 characters, e.g. 7F3A21BC" style="text-transform:uppercase;letter-spacing:.12em"><span class="hint">Shown after you registered.</span><span class="err"></span></div>
+      <div class="field" id="f-email"><label for="email">Team leader email ID</label><input type="email" id="email" maxlength="120" autocomplete="email" inputmode="email"><span class="err"></span></div>
+      <div class="formerr" id="signErr" role="alert" hidden></div>
+      <div class="actions"><a class="btn ghost" href="register.html">Not registered yet?</a><button class="btn solid" type="submit" id="signBtn">Open dashboard →</button></div>
+    </form>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dash" hidden>
+    <div class="topbar" style="margin-top:18px"><p class="lead" style="margin:0"><b id="tName" style="color:var(--ink)"></b> · <span id="tSize"></span> members · ref <span id="tRef"></span></p><span><button type="button" id="refresh">↻ Refresh</button> &nbsp; <button type="button" id="signout">Sign out</button></span></div>
+    <ol class="stages" id="stages" aria-label="Your progress">
+      <li data-k="reg"><b>Registered</b><small></small></li>
+      <li data-k="r1"><b>Round 1 review</b><small></small></li>
+      <li data-k="pay"><b>Payment</b><small></small></li>
+      <li data-k="conf"><b>Confirmed</b><small></small></li>
+    </ol>
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </section>
+</div></main>
+
+<footer>© ORIGIN · CSE &amp; IT Dept. Association · St. Peter's Engineering College, Hyderabad</footer>
+
+<script src="bg.js"></script>
+<script>
+{
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY = "hack2-team";
+const inr = n => "₹" + Number(n).toLocaleString("en-IN");
+let cred = null, team = null, proofFile = null;
+
+try { cred = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch {}
+const qs = new URLSearchParams(location.search);
+if (qs.get("ref")) $("#ref").value = qs.get("ref").toUpperCase().slice(0, 8);
+
+function setErr(id, msg){ const f = $("#"+id); f.classList.toggle("bad", !!msg); f.querySelector(":scope > .err").textContent = msg || ""; }
+
+async function fetchStatus(c){
+  const r = await fetch("/api/team/status", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(c) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || `Something went wrong (error ${r.status}).`);
+  return j.team;
+}
+function showSignin(){ $("#signin").hidden = false; $("#dash").hidden = true; }
+async function open(c, quiet){
+  try { team = await fetchStatus(c); cred = c; try { sessionStorage.setItem(KEY, JSON.stringify(c)); } catch {} render(); $("#signin").hidden = true; $("#dash").hidden = false; }
+  catch (e) { if (quiet) { try { sessionStorage.removeItem(KEY); } catch {} showSignin(); } else throw e; }
+}
+
+$("#signForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const ref = $("#ref").value.trim().toUpperCase(), email = $("#email").value.trim().toLowerCase();
+  let ok = true;
+  if (!/^[0-9A-F]{8}$/.test(ref)) { setErr("f-ref", "Enter the 8-character reference code."); ok = false; } else setErr("f-ref","");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { setErr("f-email", "Enter the team leader's email."); ok = false; } else setErr("f-email","");
+  if (!ok) return;
+  const b = $("#signBtn"), er = $("#signErr"); b.disabled = true; b.textContent = "Opening…"; er.hidden = true;
+  try { await open({ ref, email }); } catch (x) { er.textContent = x.message; er.hidden = false; }
+  finally { b.disabled = false; b.textContent = "Open dashboard →"; }
+});
+$("#signout").onclick = () => { try { sessionStorage.removeItem(KEY); } catch {} cred = team = null; $("#email").value = ""; showSignin(); };
+$("#refresh").onclick = async () => { if (cred) { try { await open(cred); } catch (e) { alertBox(e.message); } } };
+
+function stage(k, cls, txt){ const li = $(`#stages [data-k=${k}]`); li.className = cls || ""; li.querySelector("small").textContent = txt; }
+
+function render(){
+  const t = team, P = t.payment;
+  $("#tName").textContent = t.teamName; $("#tSize").textContent = t.teamSize; $("#tRef").textContent = t.ref;
+  stage("reg", "done", "Abstract received");
+  stage("r1", t.round1 === "approved" ? "done" : t.round1 === "rejected" ? "bad" : "now", t.round1 === "approved" ? "Selected" : t.round1 === "rejected" ? "Not selected" : "Under review");
+  const payTxt = { none: "Pending", submitted: "Being verified", verified: "Verified", rejected: "Needs attention" }[P.status];
+  stage("pay", t.round1 !== "approved" ? "" : P.status === "verified" ? "done" : P.status === "rejected" ? "now bad" : "now", t.round1 === "approved" ? payTxt : "After selection");
+  stage("conf", t.teamId ? "done now" : "", t.teamId ? t.teamId : "Team ID after payment");
+
+  const panel = $("#panel");
+  if (t.round1 === "under_review") {
+    panel.innerHTML = `<div class="state"><i class="dot"></i><div><h2>Your abstract is under review</h2>
+      <p>Thank you for participating! The organisers are reviewing Round 1 abstracts. Further details will be notified through mail, and this dashboard will show the result.</p></div></div>${summary()}`;
+  } else if (t.round1 === "rejected") {
+    panel.innerHTML = `<div class="state bad"><i class="dot"></i><div><h2>Not selected this time</h2>
+      <p>Thank you for submitting "${esc(t.ideaTitle)}". Your team wasn't shortlisted for HACK-A-THON 2.0. We hope to see you at our next event.</p></div></div>`;
+  } else if (P.status === "verified") {
+    panel.innerHTML = `<div class="state ok"><i class="dot"></i><div><h2>You're in. See you at HACK-A-THON 2.0!</h2>
+      <p>Your payment is verified and your registration is confirmed. Use this Team ID for everything at the event.</p></div></div>
+      <div class="idcard"><div><small>YOUR TEAM ID</small><b>${esc(t.teamId)}</b></div><a class="btn solid" href="index.html#placecard" data-place>Make your "I'm attending" card ↗</a></div>${summary(true)}`;
+    const a = panel.querySelector("[data-place]"); a.href = `index.html?team=${encodeURIComponent(t.teamId)}#placecard`;
+  } else if (P.status === "submitted") {
+    panel.innerHTML = `<div class="state ok"><i class="dot"></i><div><h2>Registration successful!</h2>
+      <p>We've received your payment details. A confirmation mail with your Team ID will be sent to <b style="color:var(--ink)">${esc(t.leaderEmail)}</b> within a few hours, after the organisers verify the payment.</p></div></div>
+      <div class="kv2"><span>Amount</span><div>${inr(t.fee.amount)} (${t.teamSize} × ${inr(t.fee.perMember)})</div><span>Transaction ID</span><div>${esc(P.txnId)}</div><span>Submitted</span><div>${esc(new Date(P.submittedAt).toLocaleString("en-IN",{ dateStyle:"medium", timeStyle:"short" }))}</div></div>`;
+  } else {
+    renderPayment();
+  }
+}
+function summary(full){
+  return `<div class="kv2"><span>Idea title</span><div>${esc(team.ideaTitle)}</div><span>Team</span><div>${team.members.map(m => esc(m.name) + (m.role === "leader" ? " (leader)" : "")).join(", ")}</div>${full ? `<span>Paid</span><div>${inr(team.fee.amount)}</div>` : ""}</div>`;
+}
+function alertBox(msg){ const n = document.createElement("div"); n.className = "notice"; n.setAttribute("role","alert"); n.textContent = msg; $("#panel").prepend(n); setTimeout(() => n.remove(), 6000); }
+
+function renderPayment(){
+  const t = team, P = t.payment, U = t.upi || {};
+  const panel = $("#panel");
+  panel.innerHTML = `
+    <span class="selected">★ SELECTED FOR HACK-A-THON 2.0</span>
+    <h2>Congratulations! Your team is selected.</h2>
+    <p style="color:var(--dim);margin-top:6px">Continue to confirm your place: pay the registration fee by scanning the QR, then submit the payment screenshot and transaction ID.</p>
+    ${P.status === "rejected" ? `<div class="notice"><b>Your last payment couldn't be verified.</b> ${esc(P.note || "")} Please pay again or submit the correct details.</div>` : ""}
+    ${!U.ready ? `<div class="notice">Payment details will be published here soon. Please check back later.</div>` : `
+    <div class="paygrid">
+      <div class="qr"><div id="qrBox"></div><p>Scan with any UPI app</p></div>
+      <div>
+        <span class="legend">Amount to pay</span>
+        <div class="amount">${inr(t.fee.amount)}</div>
+        <p class="calc">${t.teamSize} members × ${inr(t.fee.perMember)} per member</p>
+        <ol class="howto">
+          <li>Open GPay, PhonePe, Paytm or any UPI app and <b>scan this QR</b>.</li>
+          <li>Check the amount is exactly <b>${inr(t.fee.amount)}</b> and pay.</li>
+          <li>Take a screenshot of the success screen and note the <b>transaction ID / UTR</b>.</li>
+          <li>Upload both below and submit.</li>
+        </ol>
+        <div class="upi"><span style="color:var(--dim)">UPI ID</span><code>${esc(U.id)}</code><button class="copy" type="button" id="copyUpi">Copy</button><a class="btn ghost applink" href="${esc(U.link)}">Open UPI app</a></div>
+        ${U.testMode ? `<div class="test">TEST MODE: this is a demo UPI ID. Don't pay real money.</div>` : ""}
+      </div>
+    </div>
+    <form id="payForm" novalidate style="margin-top:30px;border-top:1px solid var(--line);padding-top:8px">
+      <div class="field" id="f-txn"><label for="txn">UPI transaction ID / UTR</label><input type="text" id="txn" maxlength="35" autocomplete="off" spellcheck="false" placeholder="e.g. 431298765432" style="letter-spacing:.06em"><span class="hint">12-digit UTR or the transaction ID shown in your app.</span><span class="err"></span></div>
+      <div class="field" id="f-proof"><span class="legend" id="pLbl">Payment screenshot</span>
+        <div class="drop" id="pdrop" role="button" tabindex="0" aria-labelledby="pLbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><strong>Drop the screenshot here or click to choose</strong><span>JPG, PNG or PDF, up to 4 MB</span></div>
+        <input type="file" id="proof" accept="image/png,image/jpeg,image/webp,application/pdf" hidden>
+        <div class="file" id="pBox" hidden><div style="min-width:0"><b id="pName"></b><small id="pSize"></small></div><button type="button" id="pClear">Remove</button></div>
+        <span class="err"></span></div>
+      <label class="confirm"><input type="checkbox" id="payAgree"> <span>I've paid exactly ${inr(t.fee.amount)} and the details above are correct.</span></label>
+      <div class="prog" id="pprog" hidden><i></i></div>
+      <div class="formerr" id="payErr" role="alert" hidden></div>
+      <div class="actions" style="justify-content:flex-end"><button class="btn solid" type="submit" id="payBtn" disabled>Submit payment ↗</button></div>
+    </form>`}`;
+  if (!U.ready) return;
+  $("#qrBox").innerHTML = U.qrSvg;   // SVG generated by our own API from the UPI link
+  $("#qrBox svg").setAttribute("role","img"); $("#qrBox svg").setAttribute("aria-label", `UPI QR code to pay ${inr(t.fee.amount)}`);
+  $("#copyUpi").onclick = () => navigator.clipboard.writeText(U.id).then(() => { $("#copyUpi").textContent = "Copied"; setTimeout(() => $("#copyUpi").textContent = "Copy", 1500); }, () => {});
+  proofFile = null;
+  const drop = $("#pdrop"), pick = $("#proof");
+  const kb = n => n < 1048576 ? Math.max(1, Math.round(n/1024)) + " KB" : (n/1048576).toFixed(1) + " MB";
+  async function setProof(f){
+    if (!f){ proofFile = null; $("#pBox").hidden = true; drop.hidden = false; pick.value = ""; return; }
+    const head = new Uint8Array(await f.slice(0, 12).arrayBuffer());
+    const isImg = (head[0]===0xFF&&head[1]===0xD8) || (head[0]===0x89&&head[1]===0x50) || (String.fromCharCode(...head.slice(8,12))==="WEBP") || String.fromCharCode(...head.slice(0,5))==="%PDF-";
+    if (!isImg) { pick.value = ""; return setErr("f-proof", "Upload the screenshot as a JPG, PNG or PDF."); }
+    if (f.size > 4*1048576) return setErr("f-proof", `That file is ${kb(f.size)}. The limit is 4 MB.`);
+    proofFile = f; setErr("f-proof",""); $("#pName").textContent = f.name; $("#pSize").textContent = kb(f.size); $("#pBox").hidden = false; drop.hidden = true;
+  }
+  drop.onclick = () => pick.click(); drop.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); pick.click(); } };
+  pick.onchange = e => setProof(e.target.files[0]);
+  $("#pClear").onclick = () => { setProof(null); drop.focus(); };
+  ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => setProof(e.dataTransfer.files[0]));
+  $("#txn").oninput = () => setErr("f-txn","");
+  $("#payAgree").onchange = e => $("#payBtn").disabled = !e.target.checked;
+
+  $("#payForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const txn = $("#txn").value.replace(/\s+/g,"").toUpperCase(); let ok = true;
+    if (!/^[A-Z0-9]{8,35}$/.test(txn)) { setErr("f-txn","Enter the transaction ID / UTR exactly as shown (letters and numbers)."); ok = false; }
+    if (!proofFile) { setErr("f-proof","Upload the payment screenshot."); ok = false; }
+    if (!ok) return;
+    const fd = new FormData(); fd.append("ref", cred.ref); fd.append("email", cred.email); fd.append("txnId", txn); fd.append("proof", proofFile, proofFile.name);
+    const btn = $("#payBtn"), err = $("#payErr"), prog = $("#pprog"), bar = prog.querySelector("i");
+    btn.disabled = true; btn.textContent = "Submitting…"; err.hidden = true; prog.hidden = false;
+    const xhr = new XMLHttpRequest(); xhr.open("POST", "/api/team/payment");
+    xhr.upload.onprogress = ev => { if (ev.lengthComputable) bar.style.width = Math.round(ev.loaded/ev.total*100) + "%"; };
+    const fail = m => { err.textContent = m; err.hidden = false; prog.hidden = true; btn.disabled = !$("#payAgree").checked; btn.textContent = "Submit payment ↗"; };
+    xhr.onerror = () => fail("Couldn't reach the server. Check your connection and try again.");
+    xhr.onload = () => { let j = {}; try { j = JSON.parse(xhr.responseText); } catch {}
+      if (xhr.status === 200 && j.ok) { team = j.team; render(); scrollTo({ top:0, behavior:"smooth" }); } else fail(j.error || `Something went wrong (error ${xhr.status}).`); };
+    xhr.send(fd);
+  });
+}
+
+if (cred && cred.ref) open(cred, true); else showSignin();
+}
+</script>
+</body>
+</html>

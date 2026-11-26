@@ -1,0 +1,24 @@
+{
+  "routes": [
+    {
+      "route": "/api/register",
+      "methods": [
+        "POST"
+      ],
+      "allowedRoles": [
+        "anonymous"
+      ]
+    },
+    {
+      "route": "/.auth/*",
+      "statusCode": 404
+    }
+  ],
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  },
+  "platform": {
+    "apiRuntime": "node:20"
+  }
+}

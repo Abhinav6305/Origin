@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register · HACK-A-THON 2.0</title>
+<meta name="theme-color" content="#030303">
+<link rel="icon" href="../assets/origin-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030303;--ink:#f2f2ef;--dim:#9a9a95;--faint:#3a3a37;--line:rgba(242,242,239,.16);--wht:#fff;--blk:#050505;--blk-dim:#4a4a48;--err:#ff8a7a;
+  --disp:"Anton","Impact","Arial Narrow",sans-serif;--body:"Poppins","Helvetica Neue",Arial,sans-serif;--gx:clamp(16px,4vw,48px)}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--body);-webkit-font-smoothing:antialiased;min-height:100svh}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--wht);outline-offset:3px}
+#frame{position:fixed;inset:0;z-index:0;pointer-events:none;background:#050505 no-repeat center/100% 100%}
+.shade{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,rgba(3,3,3,.35),rgba(3,3,3,.75))}
+header,main,footer{position:relative;z-index:1}
+.wrap{max-width:880px;margin-inline:auto;padding-inline:var(--gx)}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:30px;width:auto}.brand i{width:1px;height:24px;background:var(--line)}
+.back{font-size:13px;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line)}
+.back:hover{color:var(--ink)}
+
+main{padding:clamp(28px,5vw,56px) 0 80px}
+.kick{font-family:var(--disp);font-size:clamp(16px,2vw,22px);letter-spacing:.02em;color:var(--dim)}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,8vw,92px);line-height:.92;margin-top:6px}
+h1 .v2{color:transparent;-webkit-text-stroke:clamp(1.5px,.25vw,3px) var(--wht);margin-left:.15em}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(30px,4.4vw,48px);line-height:1}
+.lead{color:var(--dim);margin-top:10px;max-width:620px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 24px;font-weight:600;font-size:15px;border:1.5px solid var(--wht);background:transparent;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,opacity .2s}
+.btn.solid{background:var(--wht);color:var(--blk)}
+.btn.solid:hover{background:transparent;color:var(--wht)}
+.btn.ghost:hover{background:var(--wht);color:var(--blk)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.big{min-height:56px;padding:14px 34px;font-size:16px}
+
+/* intro */
+.intro-card{margin-top:34px;border:1px solid var(--line);background:rgba(11,11,10,.86)}
+.flow{display:grid;grid-template-columns:repeat(3,1fr)}
+.flow div{padding:22px 22px 24px;border-left:1px solid var(--line)}
+.flow div:first-child{border-left:0}
+.flow b{font-family:var(--disp);font-weight:400;font-size:36px;line-height:1;color:transparent;-webkit-text-stroke:1.3px var(--ink)}
+.flow h3{font-size:16px;margin-top:10px}.flow p{font-size:13.5px;color:var(--dim);margin-top:2px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;padding:16px 22px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim)}
+.facts span b{color:var(--ink);font-weight:600}
+.intro-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:30px}
+.intro-cta small{color:var(--dim);font-size:13px}
+
+/* stepper */
+.steps{display:flex;border:1px solid var(--line);background:rgba(3,3,3,.75);margin:30px 0 22px;list-style:none}
+.steps li{flex:1;padding:12px 14px;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--dim);border-left:1px solid var(--line);display:flex;gap:8px;align-items:baseline}
+.steps li:first-child{border-left:0}
+.steps li span{font-family:var(--disp);font-weight:400;font-size:18px;letter-spacing:0}
+.steps li em{font-style:normal}
+.steps li.on{background:var(--wht);color:var(--blk)}
+.steps li.done{color:var(--ink)}
+.panel{border:1px solid var(--line);background:rgba(11,11,10,.9);padding:clamp(20px,3.5vw,34px)}
+.panel>h2+p{color:var(--dim);margin-top:6px;font-size:14px}
+.round{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;padding:3px 9px;background:var(--wht);color:var(--blk);margin-bottom:10px}
+
+.field{display:grid;gap:6px;margin-top:20px}
+.field>label,.legend{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.field input[type=text],.field input[type=email]{width:100%;min-height:48px;padding:11px 14px;font-size:16px;background:#0c0c0b;border:1.5px solid var(--faint);color:var(--ink);border-radius:0;transition:border-color .2s}
+.field input:focus{outline:none;border-color:var(--wht)}
+.field input:disabled{opacity:.6}
+.field.bad input,.field.bad .seg,.field.bad .drop{border-color:var(--err)}
+.field .err{font-size:12.5px;color:var(--err)}
+.field .err:empty{display:none}
+.hint{font-size:12.5px;color:var(--dim)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+
+.seg{display:flex;border:1.5px solid var(--faint);width:max-content;max-width:100%}
+.seg button{min-width:64px;min-height:46px;padding:8px 16px;background:transparent;border:0;border-left:1.5px solid var(--faint);cursor:pointer;font-weight:600;color:var(--dim);transition:background .2s,color .2s}
+.seg button:first-child{border-left:0}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-checked="true"]{background:var(--wht);color:var(--blk)}
+.seg.big button{min-width:84px;font-family:var(--disp);font-weight:400;font-size:24px}
+
+.member{border:1px solid var(--line);padding:18px 20px 22px;margin-top:18px;background:rgba(3,3,3,.55)}
+.member:first-child{margin-top:22px}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.mh b{font-family:var(--disp);font-weight:400;font-size:24px;letter-spacing:.01em}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.16em;padding:3px 8px;border:1px solid var(--line);color:var(--dim)}
+.tag.lead{background:var(--wht);color:var(--blk);border-color:var(--wht)}
+.member .field{margin-top:14px}
+.same{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim);margin-top:10px;cursor:pointer}
+.same input{width:18px;height:18px;accent-color:#fff}
+
+.drop{margin-top:2px;border:1.5px dashed var(--faint);padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;display:grid;gap:6px;justify-items:center}
+.drop:hover,.drop.over{border-color:var(--wht);background:rgba(255,255,255,.03)}
+.drop svg{width:34px;height:34px;stroke:var(--ink);fill:none;stroke-width:1.5}
+.drop strong{font-size:15px}.drop span{font-size:13px;color:var(--dim)}
+.file{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:var(--wht);color:var(--blk)}
+.file b{font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file small{color:var(--blk-dim);font-size:12.5px}
+.file button{background:none;border:1px solid var(--blk);color:var(--blk);padding:6px 12px;font-size:13px;cursor:pointer;flex:none}
+
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:28px;flex-wrap:wrap}
+.actions .btn{min-width:140px}
+.formerr{margin-top:16px;padding:12px 14px;border:1px solid var(--err);color:var(--err);font-size:14px}
+
+/* review */
+.sum{margin-top:18px;border:1px solid var(--line)}
+.sum .row{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line);font-size:14.5px}
+.sum .row:first-child{border-top:0}
+.sum .row>span{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:2px}
+.sum table{width:100%;border-collapse:collapse;font-size:13.5px}
+.sum th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:0 8px 6px 0}
+.sum td{padding:6px 8px 6px 0;border-top:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.sum td small{color:var(--dim)}
+.edit{background:none;border:0;border-bottom:1px solid var(--line);color:var(--dim);font-size:13px;cursor:pointer;padding:0;margin-left:6px}
+.edit:hover{color:var(--ink)}
+.confirm{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:14px;cursor:pointer}
+.confirm input{width:18px;height:18px;margin-top:3px;accent-color:#fff;flex:none}
+.prog{height:6px;background:var(--faint);margin-top:16px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--wht);transition:width .2s}
+
+/* done */
+.done{text-align:center;padding:clamp(34px,6vw,64px) clamp(20px,4vw,48px)}
+.done .badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1.5px solid var(--wht);font-weight:700;letter-spacing:.2em;font-size:12.5px}
+.done .badge i{width:9px;height:9px;border-radius:50%;background:var(--wht);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.done h2{font-size:clamp(36px,6vw,64px);margin-top:22px}
+.done p{color:var(--dim);max-width:520px;margin:12px auto 0;font-size:16px}
+.done .ref{display:inline-grid;grid-template-columns:auto auto;gap:6px 18px;text-align:left;margin-top:26px;padding:16px 20px;background:var(--wht);color:var(--blk);font-size:14px;max-width:100%}
+.done .ref span{color:var(--blk-dim);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
+.done .ref b{font-weight:700;overflow-wrap:anywhere}
+.done .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+
+footer{border-top:1px solid var(--line);padding:22px var(--gx);font-size:12px;color:var(--dim);text-align:center;background:rgba(3,3,3,.8)}
+
+@media (max-width:640px){
+  .flow{grid-template-columns:1fr}
+  .flow div{border-left:0;border-top:1px solid var(--line)}.flow div:first-child{border-top:0}
+  .grid2{grid-template-columns:1fr}
+  .steps li{flex-direction:column;gap:0;padding:9px 8px;font-size:10.5px;letter-spacing:.04em}
+  .sum .row{grid-template-columns:1fr;gap:2px}
+  .sum thead{display:none}.sum tr{display:grid;padding:6px 0;border-top:1px solid var(--line)}.sum td{border:0;padding:1px 0}
+  .seg{width:100%}.seg button{flex:1;min-width:0;padding:8px 6px}
+  .actions .btn{flex:1;min-width:0}
+  .brand i,.brand img+i+img{display:none}
+}
+@media print{#frame,.shade,header,footer,.btns{display:none}body{background:#fff;color:#000}.panel{border:0}}
+@media (prefers-reduced-motion:reduce){.done .badge i{animation:none}}
+</style>
+</head>
+<body>
+<div id="frame" aria-hidden="true"></div><div class="shade" aria-hidden="true"></div>
+
+<header><div class="wrap">
+  <a class="brand" href="index.html" aria-label="HACK-A-THON 2.0 home"><img src="../assets/origin-logo.png" alt="ORIGIN"><i></i><img src="../assets/spec-logo.png" alt="St. Peter's Engineering College"></a>
+  <a class="back" href="index.html">← Back to HACK-A-THON 2.0</a>
+</div></header>
+
+<main><div class="wrap">
+
+  <!-- INTRO -->
+  <section id="intro">
+    <p class="kick">REGISTRATION PORTAL</p>
+    <h1>HACK-A-THON<span class="v2">2.0</span></h1>
+    <p class="lead">Register your team and submit your Round 1 abstract in one go. It takes about five minutes. Keep your team members' details and your abstract PDF ready.</p>
+    <div class="intro-card">
+      <div class="flow">
+        <div><b>01</b><h3>Form your team</h3><p>Team name and size: 3, 4 or 5 members.</p></div>
+        <div><b>02</b><h3>Add team details</h3><p>Name, email, year of study and college for everyone.</p></div>
+        <div><b>03</b><h3>Round 1: Abstract</h3><p>Give your idea a title and upload the abstract as a PDF.</p></div>
+      </div>
+      <div class="facts"><span>Team size <b>3–5</b></span><span>Open to <b>all B.Tech undergraduates</b></span><span>Abstract <b>PDF, up to 5 MB</b></span></div>
+    </div>
+    <div class="intro-cta"><button class="btn solid big" id="start" type="button">Register now ↗</button><small>One registration per team, filled in by the team leader.</small></div>
+  </section>
+
+  <!-- FORM -->
+  <section id="form" hidden>
+    <ol class="steps" id="steps" aria-label="Registration progress">
+      <li data-s="1"><span>01</span><em>Team</em></li>
+      <li data-s="2"><span>02</span><em>Members</em></li>
+      <li data-s="3"><span>03</span><em>Round 1</em></li>
+      <li data-s="4"><span>04</span><em>Review</em></li>
+    </ol>
+
+    <!-- step 1 -->
+    <div class="panel" data-step="1">
+      <h2>Your team</h2><p>Pick a name and how many of you there are.</p>
+      <div class="field" id="f-teamName"><label for="teamName">Team name</label><input type="text" id="teamName" maxlength="60" autocomplete="off" placeholder="e.g. Byte Club"><span class="err"></span></div>
+      <div class="field" id="f-teamSize"><span class="legend" id="sizeLbl">Team size</span>
+        <div class="seg big" role="radiogroup" aria-labelledby="sizeLbl" id="sizeSeg"><button type="button" role="radio" data-v="3">3</button><button type="button" role="radio" data-v="4">4</button><button type="button" role="radio" data-v="5">5</button></div>
+        <span class="hint">Including the team leader.</span><span class="err"></span></div>
+      <div class="actions"><button class="btn ghost" type="button" data-go="intro">← Back</button><button class="btn solid" type="button" data-next="1">Continue →</button></div>
+    </div>
+
+    <!-- step 2 -->
+    <div class="panel" data-step="2" hidden>
+      <h2>Team details</h2><p>The team leader's email is used for all updates about the hackathon.</p>
+      <div id="members"></div>
+      <div class="actions"><button class="btn ghost" type="button" data-prev="2">← Back</button><button class="btn solid" type="button" data-next="2">Continue →</button></div>
+    </div>
+
+    <!-- step 3 -->
+    <div class="panel" data-step="3" hidden>
+      <span class="round">ROUND 1</span>
+      <h2>Abstract submission</h2><p>The organisers review every abstract. Shortlisted teams get their Team ID and next steps by email.</p>
+      <div class="field" id="f-ideaTitle"><label for="ideaTitle">Idea title</label><input type="text" id="ideaTitle" maxlength="150" autocomplete="off" placeholder="A short, clear title for your idea"><span class="err"></span></div>
+      <div class="field" id="f-abstract"><span class="legend" id="absLbl">Abstract (PDF)</span>
+        <div class="drop" id="drop" role="button" tabindex="0" aria-labelledby="absLbl">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <strong>Drop your PDF here or click to choose</strong><span>PDF only, up to 5 MB</span>
+        </div>
+        <input type="file" id="abstract" accept="application/pdf,.pdf" hidden>
+        <div class="file" id="fileBox" hidden><div style="min-width:0"><b id="fileName"></b><small id="fileSize"></small></div><button type="button" id="fileClear">Remove</button></div>
+        <span class="err"></span></div>
+      <div class="actions"><button class="btn ghost" type="button" data-prev="3">← Back</button><button class="btn solid" type="button" data-next="3">Review →</button></div>
+    </div>
+
+    <!-- step 4 -->
+    <div class="panel" data-step="4" hidden>
+      <h2>Review and submit</h2><p>Check everything once. You can't edit the registration after submitting.</p>
+      <div class="sum" id="summary"></div>
+      <label class="confirm"><input type="checkbox" id="agree"> <span>I confirm these details are correct and that every member is a B.Tech undergraduate who agrees to take part.</span></label>
+      <div class="prog" id="prog" hidden><i></i></div>
+      <div class="formerr" id="submitErr" role="alert" hidden></div>
+      <div class="actions"><button class="btn ghost" type="button" data-prev="4">← Back</button><button class="btn solid" type="button" id="submit" disabled>Submit registration ↗</button></div>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section id="done" hidden>
+    <div class="panel done" role="status">
+      <span class="badge"><i></i>UNDER REVIEW</span>
+      <h2>Thank you for participating!</h2>
+      <p>Your registration and Round 1 abstract have been received and are under review. Further details will be notified through mail.</p>
+      <div class="ref"><span>Team</span><b id="dTeam"></b><span>Idea</span><b id="dIdea"></b><span>Reference</span><b id="dRef"></b><span>Updates to</span><b id="dMail"></b></div>
+      <div class="btns"><a class="btn solid" href="index.html">Back to HACK-A-THON 2.0</a><button class="btn ghost" type="button" id="printBtn">Save this page</button></div>
+    </div>
+  </section>
+</div></main>
+
+<footer>© ORIGIN · CSE &amp; IT Dept. Association · St. Peter's Engineering College, Hyderabad</footer>
+
+<script src="bg.js"></script>
+<script>
+{
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const YEARS = ["1st","2nd","3rd","4th"], EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, MAX = 5*1024*1024;
+const KEY = "hack2-register-draft";
+const S = { teamName:"", teamSize:null, members:[], ideaTitle:"" };
+let file = null;
+
+// draft is kept in this browser (everything except the PDF) so a refresh doesn't lose the form
+try { const d = JSON.parse(localStorage.getItem(KEY) || "{}"); if (d && typeof d === "object") Object.assign(S, d); } catch {}
+const saveDraft = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+
+/* ---------- navigation ---------- */
+function show(id){ ["intro","form","done"].forEach(x => $("#"+x).hidden = x !== id); scrollTo({top:0,behavior:"smooth"}); }
+function goStep(n){
+  $$(".panel[data-step]").forEach(p => p.hidden = +p.dataset.step !== n);
+  $$("#steps li").forEach(li => { const s = +li.dataset.s; li.classList.toggle("on", s === n); li.classList.toggle("done", s < n); if (s === n) li.setAttribute("aria-current","step"); else li.removeAttribute("aria-current"); });
+  if (n === 2) renderMembers();
+  if (n === 4) renderSummary();
+  scrollTo({top:0,behavior:"smooth"});
+  const first = $(`.panel[data-step="${n}"] input:not([type=checkbox]):not([disabled])`);
+  if (first) setTimeout(() => first.focus({preventScroll:true}), 300);
+}
+$("#start").onclick = () => { show("form"); goStep(1); };
+$$("[data-go=intro]").forEach(b => b.onclick = () => show("intro"));
+$$("[data-prev]").forEach(b => b.onclick = () => goStep(+b.dataset.prev - 1));
+$$("[data-next]").forEach(b => b.onclick = () => { const n = +b.dataset.next; if (validate(n)) goStep(n + 1); });
+$("#printBtn").onclick = () => print();
+
+/* ---------- errors ---------- */
+function setErr(id, msg){ const f = $("#"+id); if (!f) return; f.classList.toggle("bad", !!msg); const e = f.querySelector(":scope > .err"); if (e) e.textContent = msg || ""; }
+function firstBad(){ const b = $(".panel:not([hidden]) .field.bad"); if (!b) return; b.scrollIntoView({behavior:"smooth",block:"center"}); const i = b.querySelector("input:not([disabled]),.seg button,.drop"); i && i.focus({preventScroll:true}); }
+
+/* ---------- segmented choices (radio pattern) ---------- */
+function paintSeg(seg, val){ const bs = [...seg.querySelectorAll("button")]; const hasVal = bs.some(b => b.dataset.v === String(val));
+  bs.forEach((b,k) => { const on = b.dataset.v === String(val); b.setAttribute("aria-checked", on); b.tabIndex = on || (!hasVal && k === 0) ? 0 : -1; }); }
+function wireSeg(seg, pick){
+  seg.querySelectorAll("button").forEach(b => b.onclick = () => pick(b.dataset.v));
+  seg.addEventListener("keydown", e => { const bs = [...seg.querySelectorAll("button")], i = bs.indexOf(document.activeElement);
+    const dir = { ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1 }[e.key];
+    if (dir && i > -1){ e.preventDefault(); const n = bs[(i + dir + bs.length) % bs.length]; n.focus(); pick(n.dataset.v); } });
+}
+
+/* ---------- step 1 ---------- */
+$("#teamName").value = S.teamName || "";
+$("#teamName").oninput = e => { S.teamName = e.target.value; saveDraft(); setErr("f-teamName",""); };
+const sizeSeg = $("#sizeSeg");
+wireSeg(sizeSeg, v => { S.teamSize = +v; paintSeg(sizeSeg, v); saveDraft(); setErr("f-teamSize",""); });
+paintSeg(sizeSeg, S.teamSize);
+
+/* ---------- step 2: one card per member ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function renderMembers(){
+  const n = S.teamSize || 3;
+  if (!Array.isArray(S.members)) S.members = [];
+  while (S.members.length < n) S.members.push({ name:"", email:"", year:"", college:"", same:S.members.length > 0 });
+  S.members.length = n;
+  $("#members").innerHTML = S.members.map((m,i) => `
+    <div class="member" data-i="${i}" role="group" aria-label="${i === 0 ? "Team leader" : "Member " + (i+1)}">
+      <div class="mh"><b>${i === 0 ? "Team leader" : "Member " + (i+1)}</b><span class="tag ${i===0?"lead":""}">${i === 0 ? "LEADER" : "MEMBER"}</span></div>
+      <div class="grid2">
+        <div class="field" id="f-m${i}-name"><label for="m${i}-name">Full name</label><input type="text" id="m${i}-name" data-k="name" maxlength="80" autocomplete="${i===0?"name":"off"}" value="${esc(m.name)}"><span class="err"></span></div>
+        <div class="field" id="f-m${i}-email"><label for="m${i}-email">${i === 0 ? "Team leader email ID" : "Email ID"}</label><input type="email" id="m${i}-email" data-k="email" maxlength="120" inputmode="email" autocomplete="${i===0?"email":"off"}" value="${esc(m.email)}"><span class="err"></span></div>
+      </div>
+      <div class="field" id="f-m${i}-year"><span class="legend" id="m${i}-yl">Year of study</span>
+        <div class="seg" role="radiogroup" aria-labelledby="m${i}-yl">${YEARS.map(y => `<button type="button" role="radio" data-v="${y}">${y}</button>`).join("")}</div><span class="err"></span></div>
+      <div class="field" id="f-m${i}-college"><label for="m${i}-college">College name</label><input type="text" id="m${i}-college" data-k="college" maxlength="140" value="${esc(m.college)}" ${i>0 && m.same ? "disabled" : ""}><span class="err"></span></div>
+      ${i > 0 ? `<label class="same"><input type="checkbox" data-same ${m.same ? "checked" : ""}> Same college as team leader</label>` : ""}
+    </div>`).join("");
+  $$("#members .member").forEach(card => {
+    const i = +card.dataset.i, m = S.members[i];
+    card.querySelectorAll("input[data-k]").forEach(inp => inp.oninput = () => {
+      m[inp.dataset.k] = inp.value; setErr(`f-m${i}-${inp.dataset.k}`, "");
+      if (i === 0 && inp.dataset.k === "college") syncColleges();
+      saveDraft();
+    });
+    const seg = card.querySelector(".seg");
+    wireSeg(seg, v => { m.year = v; paintSeg(seg, v); setErr(`f-m${i}-year`, ""); saveDraft(); });
+    paintSeg(seg, m.year);
+    const same = card.querySelector("[data-same]");
+    if (same) same.onchange = () => { m.same = same.checked; const c = card.querySelector("[data-k=college]"); c.disabled = m.same;
+      if (m.same) { m.college = S.members[0].college; c.value = m.college; setErr(`f-m${i}-college`,""); } else c.focus(); saveDraft(); };
+  });
+  syncColleges();
+}
+function syncColleges(){ const lc = S.members[0]?.college || ""; S.members.forEach((m,i) => { if (i > 0 && m.same){ m.college = lc; const c = $(`#m${i}-college`); if (c) c.value = lc; } }); }
+
+/* ---------- step 3: idea + abstract PDF ---------- */
+$("#ideaTitle").value = S.ideaTitle || "";
+$("#ideaTitle").oninput = e => { S.ideaTitle = e.target.value; saveDraft(); setErr("f-ideaTitle",""); };
+const kb = n => n < 1024*1024 ? Math.max(1, Math.round(n/1024)) + " KB" : (n/1024/1024).toFixed(1) + " MB";
+async function setFile(f){
+  if (!f){ file = null; $("#fileBox").hidden = true; $("#drop").hidden = false; $("#abstract").value = ""; return; }
+  let head = ""; try { head = await f.slice(0, 5).text(); } catch {}
+  if (head !== "%PDF-"){ file = null; $("#abstract").value = ""; return setErr("f-abstract", "That isn't a PDF. Upload your abstract as a PDF file."); }
+  if (f.size > MAX) return setErr("f-abstract", `That file is ${kb(f.size)}. The limit is 5 MB.`);
+  file = f; setErr("f-abstract","");
+  $("#fileName").textContent = f.name; $("#fileSize").textContent = kb(f.size) + " · PDF";
+  $("#fileBox").hidden = false; $("#drop").hidden = true;
+}
+const drop = $("#drop"), picker = $("#abstract");
+picker.onchange = e => setFile(e.target.files[0]);
+drop.onclick = () => picker.click();
+drop.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); picker.click(); } };
+$("#fileClear").onclick = () => { setFile(null); drop.focus(); };
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => setFile(e.dataTransfer.files[0]));
+
+/* ---------- validation per step ---------- */
+function validate(n){
+  let ok = true; const fail = (id, msg) => { setErr(id, msg); ok = false; };
+  if (n === 1){
+    if ((S.teamName || "").trim().length < 3) fail("f-teamName", "Enter a team name (at least 3 characters).");
+    if (![3,4,5].includes(S.teamSize)) fail("f-teamSize", "Choose your team size.");
+  }
+  if (n === 2){
+    const seen = new Map();
+    S.members.forEach((m,i) => {
+      if (m.name.trim().length < 2) fail(`f-m${i}-name`, "Enter the full name.");
+      const em = m.email.trim().toLowerCase();
+      if (!EMAIL.test(em)) fail(`f-m${i}-email`, "Enter a valid email address.");
+      else if (seen.has(em)) fail(`f-m${i}-email`, `Same email as ${seen.get(em) === 0 ? "the team leader" : "member " + (seen.get(em)+1)}.`);
+      else seen.set(em, i);
+      if (!YEARS.includes(m.year)) fail(`f-m${i}-year`, "Choose the year of study.");
+      if (m.college.trim().length < 2) fail(`f-m${i}-college`, i > 0 && m.same ? "Fill in the team leader's college first." : "Enter the college name.");
+    });
+  }
+  if (n === 3){
+    if ((S.ideaTitle || "").trim().length < 5) fail("f-ideaTitle", "Enter your idea title (at least 5 characters).");
+    if (!file) fail("f-abstract", "Upload your abstract PDF.");
+  }
+  if (!ok) firstBad();
+  return ok;
+}
+
+/* ---------- step 4: review + submit ---------- */
+function renderSummary(){
+  $("#summary").innerHTML = `
+    <div class="row"><span>Team name</span><div>${esc(S.teamName.trim())}<button class="edit" type="button" data-edit="1">Edit</button></div></div>
+    <div class="row"><span>Team size</span><div>${S.teamSize} members</div></div>
+    <div class="row"><span>Team details</span><div><table><thead><tr><th>Name</th><th>Email</th><th>Year</th><th>College</th></tr></thead><tbody>
+      ${S.members.map((m,i) => `<tr><td>${esc(m.name.trim())}${i===0?" <small>(leader)</small>":""}</td><td>${esc(m.email.trim().toLowerCase())}</td><td>${esc(m.year)}</td><td>${esc(m.college.trim())}</td></tr>`).join("")}
+    </tbody></table><button class="edit" type="button" data-edit="2" style="margin:8px 0 0">Edit team details</button></div></div>
+    <div class="row"><span>Idea title</span><div>${esc(S.ideaTitle.trim())}<button class="edit" type="button" data-edit="3">Edit</button></div></div>
+    <div class="row"><span>Abstract</span><div>${esc(file ? file.name : "")} · ${file ? kb(file.size) : ""}</div></div>`;
+  $$("#summary [data-edit]").forEach(b => b.onclick = () => goStep(+b.dataset.edit));
+  $("#submitErr").hidden = true;
+}
+$("#agree").onchange = e => $("#submit").disabled = !e.target.checked;
+
+$("#submit").onclick = () => {
+  const btn = $("#submit"), err = $("#submitErr"), prog = $("#prog"), bar = prog.querySelector("i");
+  const payload = { teamName:S.teamName.trim(), teamSize:S.teamSize, ideaTitle:S.ideaTitle.trim(),
+    members:S.members.map(m => ({ name:m.name.trim(), email:m.email.trim().toLowerCase(), year:m.year, college:m.college.trim() })) };
+  const fd = new FormData(); fd.append("data", JSON.stringify(payload)); fd.append("abstract", file, file.name);
+  btn.disabled = true; btn.textContent = "Submitting…"; err.hidden = true; prog.hidden = false; bar.style.width = "0";
+  const reset = msg => { err.textContent = msg; err.hidden = false; prog.hidden = true; btn.disabled = !$("#agree").checked; btn.textContent = "Submit registration ↗"; };
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/register");
+  xhr.upload.onprogress = e => { if (e.lengthComputable) bar.style.width = Math.round(e.loaded / e.total * 100) + "%"; };
+  xhr.onerror = () => reset("Couldn't reach the server. Check your connection and try again.");
+  xhr.onload = () => {
+    let res = {}; try { res = JSON.parse(xhr.responseText); } catch {}
+    if (xhr.status === 201 && res.ok){
+      $("#dTeam").textContent = res.teamName; $("#dIdea").textContent = payload.ideaTitle;
+      $("#dRef").textContent = res.reference; $("#dMail").textContent = payload.members[0].email;
+      try { localStorage.removeItem(KEY); } catch {}
+      show("done");
+    } else reset(res.error || `Something went wrong (error ${xhr.status}). Please try again.`);
+  };
+  xhr.send(fd);
+};
+}
+</script>
+</body>
+</html>

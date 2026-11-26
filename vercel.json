@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    { "source": "/hack-a-thon2.0", "destination": "/hack-a-thon2.0/", "permanent": true },
+    { "source": "/hackathon", "destination": "/hack-a-thon2.0/", "permanent": false },
+    { "source": "/hackathon2.0", "destination": "/hack-a-thon2.0/", "permanent": false }
+  ],
+  "headers": [
+    { "source": "/api/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-store" }, { "key": "X-Content-Type-Options", "value": "nosniff" }] },
+    { "source": "/hack-a-thon2.0/admin.html", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+  ],
+  "functions": {
+    "api/**/*.js": { "maxDuration": 30 }
+  }
+}

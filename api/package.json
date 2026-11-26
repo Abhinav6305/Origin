@@ -1,0 +1,16 @@
+{
+  "name": "hackathon-2-api",
+  "version": "1.0.0",
+  "description": "HACK-A-THON 2.0 registration API (Azure Functions, Node 20)",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "dev": "node dev-server.js",
+    "test": "node test/run.js"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "@azure/functions": "^4.5.0",
+    "@azure/storage-blob": "^12.24.0"
+  }
+}

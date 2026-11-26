@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "",
+    "COSMOS_CONNECTION": "AccountEndpoint=https://<your-cosmos>.documents.azure.com:443/;AccountKey=<key>;",
+    "COSMOS_DATABASE": "hackathon2",
+    "STORAGE_CONNECTION": "DefaultEndpointsProtocol=https;AccountName=<account>;AccountKey=<key>;EndpointSuffix=core.windows.net",
+    "ABSTRACT_CONTAINER": "abstracts",
+    "ADMIN_EMAIL": "origin@stpetershyd.com",
+    "ADMIN_PASSWORD_HASH": "<output of: node tools/hash-password.js \"your password\">",
+    "SESSION_SECRET": "<long random string>"
+  }
+}

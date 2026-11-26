@@ -572,6 +572,17 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
 @media (max-width:780px){.pc .soc a{width:30px;height:30px}}
 .pc .soc a.soon{opacity:.45;cursor:default}
 .pc .soc a.soon:hover{background:var(--wht);color:var(--blk)}
+
+/* HACK-A-THON 2.0 entry points */
+.nav .hk-nav{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--ink);color:var(--ink)!important;opacity:1!important;font-weight:600;white-space:nowrap}
+.nav .hk-nav:hover{background:var(--ink);color:var(--bg)!important}
+.hk-nav i,.hk-btn i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;animation:hkPulse 1.6s ease-in-out infinite}
+.hk-btn{display:inline-flex;align-items:center;gap:10px}
+@keyframes hkPulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.hk-nav i,.hk-btn i{animation:none}}
+
+html,body{overflow-x:clip}
+@media (max-width:760px){.lbl{font-size:11px}.tagr{font-size:10.5px}}
 </style>
 </head>
 <body>
@@ -584,7 +595,7 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
 
 <header class="nav" id="siteNav">
   <div class="brands"><a class="brand" href="#top"><img src="assets/origin-logo.png" alt=""><span>ORIGIN.</span></a><span class="sep" aria-hidden="true"></span><span class="college"><img src="assets/spec-logo.png" alt="St. Peter's Engineering College"></span></div>
-  <ul><li><a href="#datasheet">About</a></li><li><a href="#events">Events</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#support">Support</a></li><li><a href="#crew">Crew</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reels">Reels</a></li><li><a href="#bus">Connect</a></li></ul>
+  <ul><li><a href="#datasheet">About</a></li><li><a href="#events">Events</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#support">Support</a></li><li><a href="#crew">Crew</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reels">Reels</a></li><li><a href="#bus">Connect</a></li><li><a class="hk-nav" href="/hack-a-thon2.0/"><i aria-hidden="true"></i>HACK-A-THON 2.0</a></li></ul>
   <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span></button>
 </header>
 
@@ -598,7 +609,7 @@ html.rl-lock,html.rl-lock body{overflow:hidden}
     <h1 class="word">ORIGIN.</h1>
     <div class="h-bot">
       <p class="lede">Every system has a core everything else connects to. ORIGIN is the CSE &amp; IT department association at SPEC, Hyderabad, and the core our ideas run through.</p>
-      <div class="btns"><a class="btn solid" href="#crew">Meet the crew</a><a class="btn" href="https://www.instagram.com/origin.spec/" target="_blank" rel="noopener">@origin.spec ↗</a></div>
+      <div class="btns"><a class="btn solid hk-btn" href="/hack-a-thon2.0/"><i aria-hidden="true"></i>HACK-A-THON 2.0 · Register ↗</a><a class="btn" href="#crew">Meet the crew</a><a class="btn" href="https://www.instagram.com/origin.spec/" target="_blank" rel="noopener">@origin.spec ↗</a></div>
     </div>
   </div><div class="cue" id="cue" aria-hidden="true"><span>Scroll</span><i></i></div></section>
   </div>
