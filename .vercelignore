@@ -1,3 +1,19 @@
 tests/
 scripts/
 .localdata/
+# old Azure Functions files + old per-route files (everything runs through api/index.js now)
+api/src/
+api/test/
+api/tools/
+api/manage/
+api/team/
+api/register.js
+api/dev-server.js
+api/host.json
+api/package.json
+api/package-lock.json
+api/local.settings.example.json
+hackathon/
+staticwebapp.config.json
+download-hackathon-1.bat
+Claude outputs/

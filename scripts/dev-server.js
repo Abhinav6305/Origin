@@ -1,4 +1,4 @@
-// Local preview that behaves like Vercel: serves the site and runs the real files in /api.
+// Local preview that behaves like Vercel: serves the site and runs api/index.js for every /api/* call.
 //   npm install && npm run dev   ->  http://localhost:3000/hack-a-thon2.0/
 // Without Azure settings it stores data in ./.localdata (never used on Vercel).
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -17,9 +17,7 @@ http.createServer((req, res) => {
   const r = redirects.find(x => x.source === url.pathname);
   if (r) { res.writeHead(r.permanent ? 308 : 307, { Location: r.destination + url.search }); return res.end(); }
   if (url.pathname.startsWith("/api/")) {
-    const file = path.join(ROOT, url.pathname + ".js");
-    if (!file.startsWith(path.join(ROOT, "api")) || url.pathname.includes("/_") || !fs.existsSync(file)) { res.writeHead(404, { "Content-Type": "application/json" }); return res.end('{"error":"Not found"}'); }
-    return require(file)(req, res);
+    return require(path.join(ROOT, "api", "index.js"))(req, res);   // same single function as on Vercel
   }
   let file = path.join(ROOT, decodeURIComponent(url.pathname));
   if (!file.startsWith(ROOT) || file.includes(`${path.sep}.`)) { res.writeHead(403); return res.end(); }

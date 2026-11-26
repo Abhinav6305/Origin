@@ -539,6 +539,14 @@ footer .brand img.s{height:76px!important}
   .links .btn{margin-top:16px;justify-content:center}
   .burger{display:inline-flex}
 }
+
+.ex-origin{color:var(--ink);background:transparent}
+.ex-origin:hover{background:var(--ink);color:#0b0b0a}
+@media (min-width:1241px){.links{gap:14px}.links a:not(.btn){font-size:12.5px}.links .btn.sm{padding:8px 12px;font-size:12.5px}.links .btn+.btn{margin-left:0}}
+@media (min-width:1241px) and (max-width:1500px){.links{gap:13px}.links a:not(.btn){font-size:12px}.nav .wrap{gap:14px}}
+@media (max-width:1240px){.links .ex-origin{margin-top:16px}.links .ex-origin+.btn{margin-top:10px}}
+
+@media (max-width:1240px){.nav,.nav.solid{backdrop-filter:none;-webkit-backdrop-filter:none;background:#030303}.links{background:#030303!important}}
 </style>
 </head>
 <body>
@@ -565,6 +573,7 @@ footer .brand img.s{height:76px!important}
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <a href="dashboard.html">Team dashboard</a>
+      <a class="btn sm ex-origin" href="/">Explore ORIGIN ↗</a>
       <a class="btn solid sm" href="register.html">Register now ↗</a>
     </nav>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="links"><span></span></button>
