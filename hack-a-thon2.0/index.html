@@ -742,14 +742,14 @@ footer .brand img.s{height:76px!important}
   <!-- REELS (same carousel as the main ORIGIN site) -->
   <section class="blk" id="reels">
     <div class="wrap">
-      <div class="hd rv"><div><p class="n">07 · REELS</p><h2>REELS.</h2></div><p>The 2.0 teaser, plus the countdown, inauguration and recap from 1.0.</p></div>
+      <div class="hd rv"><div><p class="n">07 · REELS</p><h2>REELS.</h2></div><p>Official teasers, countdowns and event highlights from Hack-A-Thon 1.0 and 2.0.</p></div>
       <div class="rl rv" id="rl">
         <button class="rl-nav rl-prev" id="rlPrev" type="button" aria-label="Previous reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
         <div class="rl-track" id="rlTrack" tabindex="0" aria-label="Reels"></div>
         <button class="rl-nav rl-next" id="rlNext" type="button" aria-label="Next reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
       </div>
       <div class="rl-bar">
-        <div class="rl-meta"><span class="rl-count" id="rlCount">01 / 06</span><span class="rl-title" id="rlTitle"></span></div>
+        <div class="rl-meta"><span class="rl-count" id="rlCount">01 / 07</span><span class="rl-title" id="rlTitle"></span></div>
         <div class="rl-dots" id="rlDots" role="tablist" aria-label="Choose a reel"></div>
         <a class="more" href="https://www.instagram.com/origin.spec/reels/" target="_blank" rel="noopener">More on Instagram ↗</a>
       </div>
@@ -1034,6 +1034,7 @@ document.querySelectorAll(".rv").forEach((el,i) => { if (el.closest(".hero")) el
 /* reels carousel (same behaviour as the main ORIGIN site): autoplay in view, sound on after first tap */
 const REELS = [
   { src:"assets/reels/hackathon-2-teaser.mp4",      poster:"assets/reels/hackathon-2-teaser.jpg",      ar:1280/720, title:"HACK-A-THON 2.0",       tag:"Official teaser" },
+  { src:"assets/reels/hackathon-1.mp4",             poster:"assets/reels/hackathon-1.jpg",             ar:720/1280, title:"Hack-A-Thon 1.0",       tag:"32-hour hackathon" },
   { src:"assets/reels/hackathon-1-inauguration.mp4", poster:"assets/reels/hackathon-1-inauguration.jpg", ar:716/1274, title:"Inauguration glimpse",  tag:"Hack-A-Thon 1.0" },
   { src:"assets/reels/hackathon-1-10-days.mp4",     poster:"assets/reels/hackathon-1-10-days.jpg",     ar:716/1274, title:"10 days to go",         tag:"Hack-A-Thon 1.0 countdown" },
   { src:"assets/reels/hackathon-1-7-days.mp4",      poster:"assets/reels/hackathon-1-7-days.jpg",      ar:716/1274, title:"7 days to go",          tag:"Hack-A-Thon 1.0 countdown" },
