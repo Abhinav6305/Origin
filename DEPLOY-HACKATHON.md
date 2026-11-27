@@ -13,7 +13,7 @@ URLs after deploy:
 - `/hack-a-thon2.0/` landing page (`/hack-a-thon2.0` without the slash redirects here)
 - `/hack-a-thon2.0/register.html` registration + Round 1 abstract
 - `/hack-a-thon2.0/dashboard.html` team dashboard (reference code + team leader email) → UPI payment → Team ID
-- `/hack-a-thon2.0/admin.html` admin (email + password)
+- `/hack-a-thon2.0/admindash.html` admin (email + password)
 
 ---
 
@@ -46,7 +46,7 @@ Commit and push to the branch Vercel deploys. Vercel installs the packages from 
 
 ## 5. Test on the live site
 1. Register a test team at `/hack-a-thon2.0/register.html` with a small PDF. Note the reference code.
-2. Log in at `/hack-a-thon2.0/admin.html` → **Approve** the team.
+2. Log in at `/hack-a-thon2.0/admindash.html` → **Approve** the team.
 3. Open `/hack-a-thon2.0/dashboard.html` with the reference code + leader email → scan the QR, pay **₹1 as a test** to your own UPI (or use a test screenshot) → submit.
 4. In admin, open the screenshot → **Verify payment** → the team gets **HACK2-001** on its dashboard.
 5. Before launch, delete the test team in Cosmos DB **Data Explorer** and set the `counter` item to `"next": 1`.

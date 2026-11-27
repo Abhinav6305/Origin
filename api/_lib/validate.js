@@ -1,3 +1,14 @@
+const DOMAINS = [
+  "Agentic AI & Autonomous Systems",
+  "Cybersecurity & Digital Trust",
+  "ClimateTech & Energy Innovation",
+  "HealthTech & BioAI",
+  "Robotics & Physical AI",
+  "SpaceTech & GeoAI",
+  "FinTech & Decentralized Infrastructure",
+  "CivicTech & Inclusive Innovation",
+  "Open Innovation"
+];
 // Validation for a HACK-A-THON 2.0 registration. Returns { value, errors }.
 const YEARS = ["1st", "2nd", "3rd", "4th"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -33,10 +44,12 @@ function validateRegistration(input) {
   const emails = members.map(m => m.email).filter(Boolean);
   if (new Set(emails).size !== emails.length) errors.push("Each member needs a different email address.");
 
+  const domain = clean(d.domain, 80);
+  if (!DOMAINS.includes(domain)) errors.push("Choose one of the listed domains.");
   const ideaTitle = clean(d.ideaTitle, 150);
   if (ideaTitle.length < 5) errors.push("Idea title must be at least 5 characters.");
 
-  return { errors, value: { teamName, teamSize, members, ideaTitle } };
+  return { errors, value: { teamName, teamSize, members, domain, ideaTitle } };
 }
 
-module.exports = { validateRegistration, YEARS };
+module.exports = { DOMAINS, validateRegistration, YEARS };

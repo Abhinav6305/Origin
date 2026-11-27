@@ -18,7 +18,8 @@ module.exports = function adapt(handler, methods) {
     } catch (e) {
       console.error(e);
       res.statusCode = 500; res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ error: "Server error. Please try again." }));
+      const azure = /cosmos|blob|storage|ENOTFOUND|Unauthorized|AuthenticationFailed|AccountName|Endpoint/i.test(String(e && (e.message || e.code)));
+      res.end(JSON.stringify({ error: azure ? "Server error: the database or file storage couldn't be reached. Check COSMOS_CONNECTION and STORAGE_CONNECTION in Vercel, then redeploy." : "Server error. Please try again." }));
     }
   };
 };

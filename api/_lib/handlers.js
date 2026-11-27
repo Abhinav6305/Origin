@@ -60,6 +60,7 @@ async function register(req) {
     id, type: "team", ref,
     teamName: value.teamName, teamNameKey, teamSize: value.teamSize,
     leaderEmail, members: value.members,
+    domain: value.domain,
     ideaTitle: value.ideaTitle,
     abstract: { blobName: `${id}.pdf`, fileName: safeName(file.name), size: buf.length, uploadedAt: now },
     round1: "under_review",                                                  // under_review | approved | rejected
@@ -96,7 +97,7 @@ function upiLink(team, amount) {
 async function teamView(team) {
   const amount = team.teamSize * FEE_PER_MEMBER;
   const v = {
-    ref: team.ref, teamName: team.teamName, teamSize: team.teamSize, ideaTitle: team.ideaTitle,
+    ref: team.ref, teamName: team.teamName, teamSize: team.teamSize, domain: team.domain || "", ideaTitle: team.ideaTitle,
     leaderEmail: team.leaderEmail, members: team.members.map(m => ({ name: m.name, role: m.role })),
     round1: team.round1, teamId: team.teamId || null,
     payment: { status: team.payment?.status || "none", txnId: team.payment?.txnId || null, submittedAt: team.payment?.submittedAt || null, note: team.payment?.note || null },

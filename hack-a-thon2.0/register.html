@@ -172,6 +172,11 @@ footer .brand img.s{height:76px!important}
 @media (max-width:760px){.brand{gap:12px}.brand img.o{height:38px!important}.brand img.s,.brand i{display:block!important}.brand img.s{height:44px!important}.brand i{height:32px}footer .brand img.o{height:52px!important}footer .brand img.s{height:62px!important}}
 .brand img{height:46px!important}.brand img+i+img{height:54px!important}
 @media (max-width:760px){.brand img{height:38px!important}.brand i,.brand img+i+img{display:block!important}.brand img+i+img{height:44px!important}}
+
+.field select{width:100%;min-height:48px;padding:11px 42px 11px 14px;font-size:16px;font-family:inherit;background:#0c0c0b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23f2f2ee' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;border:1.5px solid var(--faint);color:var(--ink);border-radius:0;appearance:none;-webkit-appearance:none;cursor:pointer;transition:border-color .2s}
+.field select:focus{outline:none;border-color:var(--ink)}
+.field select option{background:#0c0c0b;color:#f2f2ee}
+.field.bad select{border-color:var(--bad, #ff6b5b)}
 </style>
 </head>
 <body>
@@ -230,6 +235,7 @@ footer .brand img.s{height:76px!important}
     <div class="panel" data-step="3" hidden>
       <span class="round">ROUND 1</span>
       <h2>Abstract submission</h2><p>The organisers review every abstract. Shortlisted teams get their Team ID and next steps by email.</p>
+      <div class="field" id="f-domain"><label for="domain">Domain</label><select id="domain"><option value="">Choose your domain</option><option value="Agentic AI &amp; Autonomous Systems">Agentic AI &amp; Autonomous Systems</option><option value="Cybersecurity &amp; Digital Trust">Cybersecurity &amp; Digital Trust</option><option value="ClimateTech &amp; Energy Innovation">ClimateTech &amp; Energy Innovation</option><option value="HealthTech &amp; BioAI">HealthTech &amp; BioAI</option><option value="Robotics &amp; Physical AI">Robotics &amp; Physical AI</option><option value="SpaceTech &amp; GeoAI">SpaceTech &amp; GeoAI</option><option value="FinTech &amp; Decentralized Infrastructure">FinTech &amp; Decentralized Infrastructure</option><option value="CivicTech &amp; Inclusive Innovation">CivicTech &amp; Inclusive Innovation</option><option value="Open Innovation">Open Innovation</option></select><span class="err"></span></div>
       <div class="field" id="f-ideaTitle"><label for="ideaTitle">Idea title</label><input type="text" id="ideaTitle" maxlength="150" autocomplete="off" placeholder="A short, clear title for your idea"><span class="err"></span></div>
       <div class="field" id="f-abstract"><span class="legend" id="absLbl">Abstract (PDF)</span>
         <div class="drop" id="drop" role="button" tabindex="0" aria-labelledby="absLbl">
@@ -274,7 +280,7 @@ footer .brand img.s{height:76px!important}
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const YEARS = ["1st","2nd","3rd","4th"], EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, MAX = 4*1024*1024;
 const KEY = "hack2-register-draft";
-const S = { teamName:"", teamSize:null, members:[], ideaTitle:"" };
+const S = { teamName:"", teamSize:null, members:[], ideaTitle:"", domain:"" };
 let file = null;
 
 // draft is kept in this browser (everything except the PDF) so a refresh doesn't lose the form
@@ -359,6 +365,8 @@ function syncColleges(){ const lc = S.members[0]?.college || ""; S.members.forEa
 
 /* ---------- step 3: idea + abstract PDF ---------- */
 $("#ideaTitle").value = S.ideaTitle || "";
+$("#domain").value = S.domain || ""; if ($("#domain").value !== (S.domain||"")) S.domain = "";
+$("#domain").onchange = e => { S.domain = e.target.value; saveDraft(); setErr("f-domain",""); };
 $("#ideaTitle").oninput = e => { S.ideaTitle = e.target.value; saveDraft(); setErr("f-ideaTitle",""); };
 const kb = n => n < 1024*1024 ? Math.max(1, Math.round(n/1024)) + " KB" : (n/1024/1024).toFixed(1) + " MB";
 async function setFile(f){
@@ -399,6 +407,7 @@ function validate(n){
     });
   }
   if (n === 3){
+    if (!S.domain) fail("f-domain", "Choose the domain your idea belongs to.");
     if ((S.ideaTitle || "").trim().length < 5) fail("f-ideaTitle", "Enter your idea title (at least 5 characters).");
     if (!file) fail("f-abstract", "Upload your abstract PDF.");
   }
@@ -414,6 +423,7 @@ function renderSummary(){
     <div class="row"><span>Team details</span><div><table><thead><tr><th>Name</th><th>Email</th><th>Year</th><th>College</th></tr></thead><tbody>
       ${S.members.map((m,i) => `<tr><td>${esc(m.name.trim())}${i===0?" <small>(leader)</small>":""}</td><td>${esc(m.email.trim().toLowerCase())}</td><td>${esc(m.year)}</td><td>${esc(m.college.trim())}</td></tr>`).join("")}
     </tbody></table><button class="edit" type="button" data-edit="2" style="margin:8px 0 0">Edit team details</button></div></div>
+    <div class="row"><span>Domain</span><div>${esc(S.domain)}<button class="edit" type="button" data-edit="3">Edit</button></div></div>
     <div class="row"><span>Idea title</span><div>${esc(S.ideaTitle.trim())}<button class="edit" type="button" data-edit="3">Edit</button></div></div>
     <div class="row"><span>Abstract</span><div>${esc(file ? file.name : "")} · ${file ? kb(file.size) : ""}</div></div>`;
   $$("#summary [data-edit]").forEach(b => b.onclick = () => goStep(+b.dataset.edit));
@@ -423,7 +433,7 @@ $("#agree").onchange = e => $("#submit").disabled = !e.target.checked;
 
 $("#submit").onclick = () => {
   const btn = $("#submit"), err = $("#submitErr"), prog = $("#prog"), bar = prog.querySelector("i");
-  const payload = { teamName:S.teamName.trim(), teamSize:S.teamSize, ideaTitle:S.ideaTitle.trim(),
+  const payload = { teamName:S.teamName.trim(), teamSize:S.teamSize, domain:S.domain, ideaTitle:S.ideaTitle.trim(),
     members:S.members.map(m => ({ name:m.name.trim(), email:m.email.trim().toLowerCase(), year:m.year, college:m.college.trim() })) };
   const fd = new FormData(); fd.append("data", JSON.stringify(payload)); fd.append("abstract", file, file.name);
   btn.disabled = true; btn.textContent = "Submitting…"; err.hidden = true; prog.hidden = false; bar.style.width = "0";

@@ -12,6 +12,6 @@ Open `index.html` in a browser, or deploy the folder as-is (Vercel / Netlify / G
 About · Recent Events · Certificates · Our Support · Crew · Gallery · Reels · Connect
 
 ## HACK-A-THON 2.0 (/hack-a-thon2.0)
-- `hack-a-thon2.0/` – landing page, registration (`register.html`), team dashboard (`dashboard.html`), admin (`admin.html`) and their assets.
+- `hack-a-thon2.0/` – landing page, registration (`register.html`), team dashboard (`dashboard.html`), admin (`admindash.html`) and their assets.
 - `api/` – Vercel functions for the portal. Data lives in Azure Cosmos DB + Blob Storage.
 - Setup and deploy: [DEPLOY-HACKATHON.md](DEPLOY-HACKATHON.md). Local preview: `npm install && npm run dev`.

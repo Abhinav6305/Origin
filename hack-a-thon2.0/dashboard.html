@@ -326,7 +326,7 @@ function render(){
   }
 }
 function summary(full){
-  return `<div class="kv2"><span>Idea title</span><div>${esc(team.ideaTitle)}</div><span>Team</span><div>${team.members.map(m => esc(m.name) + (m.role === "leader" ? " (leader)" : "")).join(", ")}</div>${full ? `<span>Paid</span><div>${inr(team.fee.amount)}</div>` : ""}</div>`;
+  return `<div class="kv2">${team.domain ? `<span>Domain</span><div>${esc(team.domain)}</div>` : ""}<span>Idea title</span><div>${esc(team.ideaTitle)}</div><span>Team</span><div>${team.members.map(m => esc(m.name) + (m.role === "leader" ? " (leader)" : "")).join(", ")}</div>${full ? `<span>Paid</span><div>${inr(team.fee.amount)}</div>` : ""}</div>`;
 }
 function alertBox(msg){ const n = document.createElement("div"); n.className = "notice"; n.setAttribute("role","alert"); n.textContent = msg; $("#panel").prepend(n); setTimeout(() => n.remove(), 6000); }
 

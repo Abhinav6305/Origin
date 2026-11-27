@@ -31,7 +31,7 @@
       ]
     },
     {
-      "source": "/hack-a-thon2.0/admin.html",
+      "source": "/hack-a-thon2.0/admindash.html",
       "headers": [
         {
           "key": "X-Robots-Tag",

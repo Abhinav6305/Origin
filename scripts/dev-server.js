@@ -25,4 +25,4 @@ http.createServer((req, res) => {
   if (!fs.existsSync(file)) { res.writeHead(404); return res.end("Not found"); }
   res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream" });
   fs.createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`http://localhost:${PORT}/hack-a-thon2.0/   admin: /hack-a-thon2.0/admin.html   team: /hack-a-thon2.0/dashboard.html`));
+}).listen(PORT, () => console.log(`http://localhost:${PORT}/hack-a-thon2.0/   admin: /hack-a-thon2.0/admindash.html   team: /hack-a-thon2.0/dashboard.html`));

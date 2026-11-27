@@ -5,7 +5,7 @@ const h = require("../api/_lib/handlers");
 
 const PDF = Buffer.from("%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF");
 const member = (i, o = {}) => ({ name: `Person ${i}`, email: `p${i}@spec.edu`, year: "3rd", college: "SPEC Hyderabad", ...o });
-const team = (o = {}) => ({ teamName: "Byte Club", teamSize: 3, members: [member(1), member(2), member(3)], ideaTitle: "Smart waste sorting with vision", ...o });
+const team = (o = {}) => ({ teamName: "Byte Club", teamSize: 3, members: [member(1), member(2), member(3)], domain: "ClimateTech & Energy Innovation", ideaTitle: "Smart waste sorting with vision", ...o });
 const reg = (data, file = PDF, name = "abs.pdf") => {
   const fd = new FormData(); fd.append("data", JSON.stringify(data));
   if (file) fd.append("abstract", new Blob([file], { type: "application/pdf" }), name);
@@ -24,6 +24,8 @@ let pass = 0; const ok = (c, m) => { assert.ok(c, m); pass++; console.log("  ✓
   r = await reg(team({ teamName: "NoPdf", members: [member(21), member(22), member(23)] }), Buffer.from("hello"), "a.pdf"); ok(r.status === 400 && /PDF/.test(r.jsonBody.error), "non-PDF upload rejected");
   r = await reg(team({ teamName: "NoFile", members: [member(31), member(32), member(33)] }), null); ok(r.status === 400, "missing abstract rejected");
   r = await reg(team({ teamName: "Big", members: [member(41), member(42), member(43)] }), Buffer.concat([PDF, Buffer.alloc(4 * 1024 * 1024)])); ok(r.status === 400 && /4 MB/.test(r.jsonBody.error), "abstract over 4 MB rejected");
+  r = await reg(team({ teamName: "NoDomain", domain: "", members: [member(51), member(52), member(53)] })); ok(r.status === 400 && /domain/i.test(r.jsonBody.error), "registration without a domain rejected");
+  r = await reg(team({ teamName: "FakeDomain", domain: "Underwater Basket Weaving", members: [member(61), member(62), member(63)] })); ok(r.status === 400 && /domain/i.test(r.jsonBody.error), "made-up domain rejected");
   r = await reg(team({ teamName: "Five Stack", teamSize: 5, members: [1,2,3,4,5].map(i => member(50 + i, { year: ["1st","2nd","3rd","4th","1st"][i-1] })) })); ok(r.status === 201, "5-member team registers");
 
   process.env.ADMIN_EMAIL = "origin@stpetershyd.com";

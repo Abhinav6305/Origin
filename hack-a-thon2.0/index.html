@@ -7,7 +7,7 @@
 <meta name="description" content="HACK-A-THON 2.0, a 36-hour international-level hackathon organised by the Department of CSE, St. Peter's Engineering College, with ORIGIN. One team. One dream. One hack.">
 <meta name="theme-color" content="#030303">
 <meta property="og:title" content="HACK-A-THON 2.0 · 36-hour hackathon at SPEC Hyderabad">
-<meta property="og:description" content="One team. One dream. One hack. 8 domains, teams of 3–5, open to all B.Tech undergraduates.">
+<meta property="og:description" content="One team. One dream. One hack. 9 domains, teams of 3–5, open to all B.Tech undergraduates.">
 <link rel="icon" href="assets/origin-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,7 +132,7 @@ section.blk{padding:clamp(80px,11vw,150px) 0}
 .step p{font-size:14px;color:var(--dim);margin-top:4px}
 
 /* domains */
-.domains{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.domains{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .dom{position:relative;border:1px solid var(--line);background:rgba(11,11,10,.78);padding:24px 22px 22px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,color .3s,transform .3s,border-color .3s;overflow:hidden}
 .dom::after{content:"";position:absolute;right:-1px;top:-1px;width:22px;height:22px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
 .dom svg{width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -609,7 +609,7 @@ footer .brand img.s{height:76px!important}
   <div class="stats">
     <div class="wrap">
       <div class="stat"><b>36</b><span>Hours</span></div>
-      <div class="stat"><b>08</b><span>Domains</span></div>
+      <div class="stat"><b>09</b><span>Domains</span></div>
       <div class="stat"><b>3–5</b><span>Members per team</span></div>
       <div class="stat"><b>₹599</b><span>Per member</span></div>
     </div>
@@ -637,7 +637,7 @@ footer .brand img.s{height:76px!important}
   <section class="blk" id="about">
     <div class="wrap">
       <div class="hd rv"><div><p class="n">01 · ABOUT</p><h2>THE SEQUEL.</h2></div><p>Hack-A-Thon 1.0 ran for 32 hours at SPEC. 2.0 runs longer, with more domains.</p></div>
-      <p class="lead rv">HACK-A-THON 2.0 is a <b>36-hour, international-level hackathon</b> organised by the <b>Department of CSE, St. Peter's Engineering College</b>, with ORIGIN, the CSE &amp; IT department association. Build a working prototype for a real problem in one of eight domains, with mentor reviews at four checkpoints along the way.</p>
+      <p class="lead rv">HACK-A-THON 2.0 is a <b>36-hour, international-level hackathon</b> organised by the <b>Department of CSE, St. Peter's Engineering College</b>, with ORIGIN, the CSE &amp; IT department association. Build a working prototype for a real problem in one of nine domains, with mentor reviews at four checkpoints along the way.</p>
       <div class="about-grid">
         <div class="facts rv">
           <div class="fact"><span>Format</span><div>36 hours, on campus</div></div>
@@ -742,14 +742,14 @@ footer .brand img.s{height:76px!important}
   <!-- REELS (same carousel as the main ORIGIN site) -->
   <section class="blk" id="reels">
     <div class="wrap">
-      <div class="hd rv"><div><p class="n">07 · REELS</p><h2>REELS.</h2></div><p>Official teasers, countdowns and event highlights from Hack-A-Thon 1.0 and 2.0.</p></div>
+      <div class="hd rv"><div><p class="n">07 · REELS</p><h2>REELS.</h2></div><p>The 2.0 teaser, plus the countdown, inauguration and recap from 1.0.</p></div>
       <div class="rl rv" id="rl">
         <button class="rl-nav rl-prev" id="rlPrev" type="button" aria-label="Previous reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
         <div class="rl-track" id="rlTrack" tabindex="0" aria-label="Reels"></div>
         <button class="rl-nav rl-next" id="rlNext" type="button" aria-label="Next reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
       </div>
       <div class="rl-bar">
-        <div class="rl-meta"><span class="rl-count" id="rlCount">01 / 07</span><span class="rl-title" id="rlTitle"></span></div>
+        <div class="rl-meta"><span class="rl-count" id="rlCount">01 / 06</span><span class="rl-title" id="rlTitle"></span></div>
         <div class="rl-dots" id="rlDots" role="tablist" aria-label="Choose a reel"></div>
         <a class="more" href="https://www.instagram.com/origin.spec/reels/" target="_blank" rel="noopener">More on Instagram ↗</a>
       </div>
@@ -860,16 +860,21 @@ const CONFIG = {
 };
 
 const DOMAINS = [
-  ["AI","Models, agents and intelligent tools for real problems.","ai"],
-  ["Blockchain","Trust, transparency and decentralised systems.","chain"],
-  ["IoT","Connected devices, sensors and smart environments.","iot"],
-  ["Auto-Tech","Mobility, vehicle systems and transport.","car"],
-  ["Agriculture","Tech for farmers, crops, water and supply chains.","leaf"],
-  ["Waste Management","Collection, segregation, recycling and reuse.","recycle"],
-  ["Low Poverty","Access, livelihoods and inclusion for low-income communities.","hand"],
+  ["Agentic AI & Autonomous Systems","AI agents and systems that plan, decide and act on their own.","ai"],
+  ["Cybersecurity & Digital Trust","Protect people, data and systems; build trust online.","lock"],
+  ["ClimateTech & Energy Innovation","Clean energy, efficiency and solutions for a warming planet.","leaf"],
+  ["HealthTech & BioAI","Care, diagnostics and biology powered by technology and AI.","health"],
+  ["Robotics & Physical AI","Machines and AI that sense and act in the real world.","robot"],
+  ["SpaceTech & GeoAI","Satellites, maps and Earth data turned into insight.","orbit"],
+  ["FinTech & Decentralized Infrastructure","Payments, finance and decentralised systems that scale.","chain"],
+  ["CivicTech & Inclusive Innovation","Tech for public services, access and communities left behind.","hand"],
   ["Open Innovation","No box. Bring any idea that matters.","spark"],
 ];
 const ICONS = {
+  lock:'<rect x="9" y="18" width="22" height="16" rx="2"/><path d="M14 18v-5a6 6 0 0 1 12 0v5"/><path d="M20 24v4"/>',
+  health:'<path d="M20 34S6 25 6 15a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 10-14 19-14 19z"/><path d="M13 20h4l2-4 3 8 2-4h4"/>',
+  robot:'<rect x="9" y="13" width="22" height="18" rx="3"/><path d="M20 13V7"/><circle cx="20" cy="6" r="1.5"/><circle cx="15" cy="21" r="2"/><circle cx="25" cy="21" r="2"/><path d="M15 27h10M5 20v6M35 20v6"/>',
+  orbit:'<circle cx="20" cy="20" r="5"/><ellipse cx="20" cy="20" rx="16" ry="7" transform="rotate(-25 20 20)"/><circle cx="33" cy="13" r="1.8"/>',
   ai:'<rect x="9" y="9" width="22" height="22" rx="2"/><rect x="15" y="15" width="10" height="10"/><path d="M15 9V4M25 9V4M15 36v-5M25 36v-5M9 15H4M9 25H4M36 15h-5M36 25h-5"/>',
   chain:'<rect x="4" y="14" width="14" height="12" rx="2"/><rect x="22" y="14" width="14" height="12" rx="2"/><path d="M18 20h4"/><path d="M11 14V8h18v6"/>',
   iot:'<circle cx="20" cy="24" r="3"/><path d="M13 17a10 10 0 0 1 14 0M8 12a17 17 0 0 1 24 0"/><path d="M20 27v9M14 36h12"/>',
@@ -1034,7 +1039,6 @@ document.querySelectorAll(".rv").forEach((el,i) => { if (el.closest(".hero")) el
 /* reels carousel (same behaviour as the main ORIGIN site): autoplay in view, sound on after first tap */
 const REELS = [
   { src:"assets/reels/hackathon-2-teaser.mp4",      poster:"assets/reels/hackathon-2-teaser.jpg",      ar:1280/720, title:"HACK-A-THON 2.0",       tag:"Official teaser" },
-  { src:"assets/reels/hackathon-1.mp4",             poster:"assets/reels/hackathon-1.jpg",             ar:720/1280, title:"Hack-A-Thon 1.0",       tag:"32-hour hackathon" },
   { src:"assets/reels/hackathon-1-inauguration.mp4", poster:"assets/reels/hackathon-1-inauguration.jpg", ar:716/1274, title:"Inauguration glimpse",  tag:"Hack-A-Thon 1.0" },
   { src:"assets/reels/hackathon-1-10-days.mp4",     poster:"assets/reels/hackathon-1-10-days.jpg",     ar:716/1274, title:"10 days to go",         tag:"Hack-A-Thon 1.0 countdown" },
   { src:"assets/reels/hackathon-1-7-days.mp4",      poster:"assets/reels/hackathon-1-7-days.jpg",      ar:716/1274, title:"7 days to go",          tag:"Hack-A-Thon 1.0 countdown" },

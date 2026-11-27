@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin · HACK-A-THON 2.0</title>
+<link rel="icon" href="assets/origin-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#0d0d0c;--ink:#f2f2ef;--dim:#a3a39e;--faint:#3a3a37;--line:rgba(242,242,239,.14);--wht:#fff;--blk:#050505;--blk-dim:#4a4a48;
+  --ok:#9be59b;--no:#ff9a8a;--wait:#f2d27a;--sel:#9ec9ff;--pay:#e2a8ff;
+  --disp:"Anton","Impact","Arial Narrow",sans-serif;--body:"Poppins","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:14.5px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--wht);outline-offset:2px}
+a{color:inherit}
+.wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(14px,3vw,36px)}
+
+header{border-bottom:1px solid var(--line);background:#030303;position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:28px}.brand b{font-family:var(--disp);font-weight:400;font-size:20px;letter-spacing:.02em}
+.brand span{font-size:11px;font-weight:700;letter-spacing:.18em;padding:2px 7px;background:var(--wht);color:var(--blk)}
+.who{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--dim)}
+.who a{color:var(--ink)}
+
+main{padding:28px 0 60px}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(32px,4vw,48px);line-height:1}
+.sub{color:var(--dim);margin-top:4px}
+
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:22px}
+.tile{border:1px solid var(--line);background:var(--card);padding:14px 16px;text-align:left;cursor:pointer;transition:border-color .2s}
+.tile:hover{border-color:var(--dim)}
+.tile[aria-pressed="true"]{border-color:var(--wht);background:#151514}
+.tile b{display:block;font-family:var(--disp);font-weight:400;font-size:34px;line-height:1.05}
+.tile span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.tile i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:20px}
+.search{flex:1;min-width:220px;max-width:420px;position:relative}
+.search input{width:100%;min-height:44px;padding:10px 12px 10px 38px;background:var(--card);border:1.5px solid var(--faint);font-size:15px}
+.search input:focus{outline:none;border-color:var(--wht)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--dim);fill:none;stroke-width:2}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 16px;font-weight:600;font-size:13.5px;border:1.5px solid var(--wht);background:transparent;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--wht);color:var(--blk)}
+.btn.solid{background:var(--wht);color:var(--blk)}
+.btn.solid:hover{background:transparent;color:var(--wht)}
+.btn.sm{min-height:34px;padding:5px 11px;font-size:12.5px}
+.btn.ok{border-color:var(--ok);color:var(--ok)}.btn.ok:hover{background:var(--ok);color:var(--blk)}
+.btn.no{border-color:var(--no);color:var(--no)}.btn.no:hover{background:var(--no);color:var(--blk)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+.tablewrap{margin-top:16px;border:1px solid var(--line);background:var(--card);overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th{text-align:left;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;padding:12px;border-bottom:1px solid var(--line);background:var(--card);white-space:nowrap}
+th button{background:none;border:0;color:inherit;letter-spacing:inherit;text-transform:inherit;font-weight:inherit;cursor:pointer}
+td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:#151514}
+td.team b{display:block;font-weight:600}
+td.team small,td.lead small{color:var(--dim);font-size:12.5px;display:block;overflow-wrap:anywhere}
+td.idea{max-width:300px}
+td.lead{min-width:240px}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border:1px solid currentColor;white-space:nowrap}
+.pill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.under_review{color:var(--wait)}.pill.selected{color:var(--sel)}.pill.to_verify{color:var(--pay)}.pill.confirmed{color:var(--ok)}.pill.rejected{color:var(--no)}
+.paycell{font-size:13px;white-space:nowrap}.paycell small{display:block;color:var(--dim);font-size:12px}
+.payrej{color:var(--no);font-size:12px;display:block}
+.payimg{margin-top:10px;border:1px solid var(--line);background:#000;display:block;max-width:100%}
+.payimg img{display:block;max-width:100%;max-height:420px;margin:auto}
+.note{width:100%;min-height:40px;padding:8px 10px;background:#050505;border:1.5px solid var(--faint);font-size:14px;margin-top:8px}
+.tid{font-family:var(--disp);font-weight:400;font-size:18px;letter-spacing:.04em;white-space:nowrap}
+.tid.none{font-family:var(--body);font-size:13px;color:var(--dim)}
+.acts{display:flex;gap:6px;white-space:nowrap}
+.empty{padding:48px 20px;text-align:center;color:var(--dim)}
+
+/* detail drawer */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100vw);background:#0a0a09;border-left:1px solid var(--line);z-index:41;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 22px;border-bottom:1px solid var(--line)}
+.dh h2{font-family:var(--disp);font-weight:400;font-size:30px;line-height:1.05;overflow-wrap:anywhere;margin-top:8px}
+.dh .x{width:40px;height:40px;border:1px solid var(--line);background:none;cursor:pointer;font-size:16px;flex:none}
+.db{padding:18px 22px;overflow-y:auto;flex:1}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 14px;font-size:14px}
+.kv span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;padding-top:3px}
+.kv div{overflow-wrap:anywhere}
+.idbox{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 18px;padding:14px 16px;background:var(--wht);color:var(--blk)}
+.idbox small{display:block;font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--blk-dim)}
+.idbox b{font-family:var(--disp);font-weight:400;font-size:30px;letter-spacing:.04em;line-height:1.1}
+.idbox button{border:1px solid var(--blk);background:none;color:var(--blk);padding:6px 12px;cursor:pointer;font-size:13px}
+.mem{border:1px solid var(--line);padding:12px 14px;margin-top:10px}
+.mem b{display:block}
+.mem small{color:var(--dim);font-size:13px;display:block;overflow-wrap:anywhere}
+.mem em{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.14em;padding:2px 6px;background:var(--wht);color:var(--blk);margin-left:6px;vertical-align:2px}
+.sec{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-top:22px}
+.df{display:flex;flex-wrap:wrap;gap:8px;padding:16px 22px;border-top:1px solid var(--line)}
+.df .btn{flex:1;justify-content:center;min-height:46px}
+
+.toast{position:fixed;left:24px;bottom:24px;transform:translateY(20px);background:var(--wht);color:var(--blk);padding:12px 18px;font-weight:600;font-size:14px;z-index:60;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;max-width:90vw}
+.toast.show{opacity:1;transform:none}
+.gate{max-width:520px;margin:12vh auto;padding:28px;border:1px solid var(--line);background:var(--card);text-align:center}
+.gate{text-align:left}.gate h1{font-size:40px;text-align:center}.gate>p{color:var(--dim);margin:6px 0 22px;text-align:center}
+.lf{display:grid;gap:6px;margin-bottom:14px}.lf span{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.lf input{min-height:48px;padding:10px 12px;background:#050505;border:1.5px solid var(--faint);font-size:16px}.lf input:focus{outline:none;border-color:var(--wht)}
+.gate .lerr{color:var(--no);font-size:14px;margin:-4px 0 12px;text-align:left}
+.linkbtn{background:none;border:0;color:var(--ink);text-decoration:underline;cursor:pointer;font-size:13px}
+
+@media (max-width:1100px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.who span{display:none}.brand b{font-size:16px}.kv{grid-template-columns:1fr;gap:2px}.kv span{margin-top:8px}}
+
+html,body{overflow-x:clip}
+input,select,textarea{font-size:16px}
+
+/* bigger, more legible logos */
+.brand{gap:18px}
+.brand img.o{height:46px!important}
+.brand img.s{height:54px!important;opacity:1}
+.brand i{height:40px}
+footer .brand img.o{height:64px!important}
+footer .brand img.s{height:76px!important}
+@media (max-width:760px){.brand{gap:12px}.brand img.o{height:38px!important}.brand img.s,.brand i{display:block!important}.brand img.s{height:44px!important}.brand i{height:32px}footer .brand img.o{height:52px!important}footer .brand img.s{height:62px!important}}
+td.dom{max-width:190px;font-size:13px;color:var(--dim)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/origin-logo.png" alt="ORIGIN"><b>HACK-A-THON 2.0</b><span>ADMIN</span></a>
+  <div class="who"><span id="who"></span><button type="button" id="logout" class="linkbtn" hidden>Sign out</button></div>
+</div></header>
+
+<main><div class="wrap">
+  <form id="gate" class="gate" hidden novalidate>
+    <h1>ADMIN LOGIN</h1><p>HACK-A-THON 2.0 organisers only.</p>
+    <label class="lf"><span>Email</span><input type="email" id="lEmail" autocomplete="username" required></label>
+    <label class="lf"><span>Password</span><input type="password" id="lPass" autocomplete="current-password" required></label>
+    <p class="lerr" id="lErr" role="alert" hidden></p>
+    <button class="btn solid" type="submit" id="lBtn" style="width:100%;justify-content:center;min-height:48px">Sign in</button>
+  </form>
+
+  <div id="app" hidden>
+    <h1>REGISTRATIONS</h1>
+    <p class="sub">Review abstracts → selected teams pay ₹599/member by UPI → verify the payment to issue the Team ID (HACK2-001, HACK2-002, …).</p>
+
+    <div class="tiles" id="tiles" role="group" aria-label="Filter by stage">
+      <button class="tile" type="button" data-f="all" aria-pressed="true"><b id="c-all">0</b><span>All teams</span></button>
+      <button class="tile" type="button" data-f="under_review" aria-pressed="false"><b id="c-under_review">0</b><span><i style="background:var(--wait)"></i>Under review</span></button>
+      <button class="tile" type="button" data-f="selected" aria-pressed="false"><b id="c-selected">0</b><span><i style="background:var(--sel)"></i>Selected · unpaid</span></button>
+      <button class="tile" type="button" data-f="to_verify" aria-pressed="false"><b id="c-to_verify">0</b><span><i style="background:var(--pay)"></i>Payment to verify</span></button>
+      <button class="tile" type="button" data-f="confirmed" aria-pressed="false"><b id="c-confirmed">0</b><span><i style="background:var(--ok)"></i>Confirmed</span></button>
+      <button class="tile" type="button" data-f="rejected" aria-pressed="false"><b id="c-rejected">0</b><span><i style="background:var(--no)"></i>Rejected</span></button>
+    </div>
+    <p class="sub" id="people" style="margin-top:10px"></p>
+
+
+    <div class="bar">
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="q" placeholder="Search team, domain, idea, email, college, Team ID" aria-label="Search registrations"></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="refresh" type="button">↻ Refresh</button><button class="btn solid" id="csv" type="button">Export CSV</button></div>
+    </div>
+
+    <div class="tablewrap"><table>
+      <thead><tr>
+        <th><button type="button" data-sort="createdAt">Submitted ↓</button></th><th><button type="button" data-sort="teamName">Team</button></th><th>Team leader</th><th>Size</th><th><button type="button" data-sort="domain">Domain</button></th><th>Idea title</th><th>Stage</th><th>Payment</th><th><button type="button" data-sort="teamId">Team ID</button></th><th>Actions</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table><div class="empty" id="empty" hidden>No registrations match.</div></div>
+  </div>
+</div></main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" hidden>
+  <div class="dh"><div><span class="pill" id="dPill"></span><h2 id="dTitle"></h2></div><button class="x" id="dClose" type="button" aria-label="Close">✕</button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df" id="dFoot"></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const STAGE = { under_review:"UNDER REVIEW", selected:"SELECTED · UNPAID", to_verify:"PAYMENT TO VERIFY", confirmed:"CONFIRMED", rejected:"REJECTED" };
+const stageOf = t => t.round1 === "rejected" ? "rejected" : t.round1 !== "approved" ? "under_review"
+  : t.payment?.status === "verified" ? "confirmed" : t.payment?.status === "submitted" ? "to_verify" : "selected";
+let teams = [], fee = 599, filter = "all", sortKey = "createdAt", sortDir = -1, openId = null;
+
+const fmtDate = iso => iso ? new Date(iso).toLocaleString("en-IN", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit", timeZone:"Asia/Kolkata" }) : "";
+const inr = n => "₹" + Number(n || 0).toLocaleString("en-IN");
+const pill = s => `<span class="pill ${esc(s)}"><i></i>${STAGE[s] || esc(s)}</span>`;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 3000); }
+
+async function api(path, opts){
+  const r = await fetch(path, { credentials:"same-origin", ...opts });
+  if (r.status === 401 || r.status === 403) { const e = new Error("auth"); e.auth = true; throw e; }
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || `Error ${r.status}`);
+  return body;
+}
+async function who(){ try { const r = await fetch("/api/manage/me", { credentials:"same-origin" }); if (!r.ok) return; const j = await r.json(); $("#who").textContent = j.email; $("#logout").hidden = false; } catch {} }
+function showLogin(){ $("#app").hidden = true; $("#gate").hidden = false; $("#logout").hidden = true; $("#who").textContent = ""; setTimeout(() => $("#lEmail").focus(), 50); }
+$("#gate").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = $("#lBtn"), err = $("#lErr"); err.hidden = true; btn.disabled = true; btn.textContent = "Signing in…";
+  try {
+    const r = await fetch("/api/manage/login", { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ email:$("#lEmail").value, password:$("#lPass").value }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || "Sign-in failed.");
+    $("#lPass").value = ""; await who(); await load();
+  } catch (x) { err.textContent = x.message; err.hidden = false; $("#lPass").select(); }
+  finally { btn.disabled = false; btn.textContent = "Sign in"; }
+});
+$("#logout").onclick = async () => { await fetch("/api/manage/logout", { method:"POST", credentials:"same-origin" }).catch(() => {}); teams = []; showLogin(); toast("Signed out"); };
+
+async function load(){
+  try { const j = await api("/api/manage/teams"); teams = j.teams; fee = j.feePerMember || 599; $("#gate").hidden = true; $("#app").hidden = false; render(); return true; }
+  catch (e) { if (e.auth) showLogin(); else toast("Couldn't load registrations: " + e.message); return false; }
+}
+
+function matches(t, q){
+  if (!q) return true;
+  const hay = [t.teamName, t.domain, t.ideaTitle, t.teamId, t.ref, t.payment?.txnId, ...t.members.flatMap(m => [m.name, m.email, m.college])].join(" ").toLowerCase();
+  return q.split(/\s+/).every(w => hay.includes(w));
+}
+function payCell(t){
+  const P = t.payment || {}, amt = inr(t.teamSize * fee);
+  if (t.round1 !== "approved") return `<span class="paycell" style="color:var(--dim)">—</span>`;
+  if (P.status === "submitted" || P.status === "verified") return `<span class="paycell">${inr(P.amount || t.teamSize*fee)}<small>${esc(P.txnId)}</small></span>`;
+  return `<span class="paycell">${amt}<small>${P.status === "rejected" ? "proof rejected" : "awaiting"}</small></span>`;
+}
+function actions(t){
+  const st = stageOf(t), id = esc(t.id);
+  const pdf = `<a class="btn sm" href="/api/manage/abstract?id=${encodeURIComponent(t.id)}" target="_blank" rel="noopener" data-stop>PDF</a>`;
+  if (st === "under_review") return pdf + `<button class="btn sm ok" type="button" data-act="approve">Approve</button><button class="btn sm no" type="button" data-act="reject">Reject</button>`;
+  if (st === "to_verify") return pdf + `<a class="btn sm" href="/api/manage/payment-proof?id=${encodeURIComponent(t.id)}" target="_blank" rel="noopener" data-stop>Proof</a><button class="btn sm ok" type="button" data-act="pay_verify">Verify</button><button class="btn sm no" type="button" data-act="pay_reject">Reject pay</button>`;
+  if (st === "rejected") return pdf + `<button class="btn sm ok" type="button" data-act="approve">Approve</button>`;
+  return pdf;
+}
+function render(){
+  const counts = { all:teams.length, under_review:0, selected:0, to_verify:0, confirmed:0, rejected:0 };
+  teams.forEach(t => counts[stageOf(t)]++);
+  Object.entries(counts).forEach(([k,v]) => $("#c-"+k).textContent = v);
+  const people = teams.reduce((n,t) => n + (t.teamSize || 0), 0), confirmedPeople = teams.filter(t => stageOf(t) === "confirmed").reduce((n,t) => n + t.teamSize, 0);
+  const collected = teams.filter(t => stageOf(t) === "confirmed").reduce((n,t) => n + (t.payment?.amount || t.teamSize*fee), 0);
+  $("#people").textContent = `${people} participants registered · ${confirmedPeople} confirmed · ${inr(collected)} verified`;
+  $$("#tiles [data-f]").forEach(b => b.setAttribute("aria-pressed", b.dataset.f === filter));
+
+  const q = $("#q").value.trim().toLowerCase();
+  const list = teams.filter(t => (filter === "all" || stageOf(t) === filter) && matches(t, q))
+    .sort((a,b) => String(a[sortKey] ?? "~").localeCompare(String(b[sortKey] ?? "~"), undefined, { numeric:true }) * sortDir);
+  $("#empty").hidden = list.length > 0;
+  $("#empty").textContent = teams.length ? "No registrations match." : "No registrations yet.";
+  $("#rows").innerHTML = list.map(t => { const L = t.members[0] || {}; return `
+    <tr data-id="${esc(t.id)}" tabindex="0">
+      <td class="num">${esc(fmtDate(t.createdAt))}</td>
+      <td class="team"><b>${esc(t.teamName)}</b><small>${esc(L.college)}</small></td>
+      <td class="lead">${esc(L.name)}<small>${esc(L.email)}</small></td>
+      <td class="num">${Number(t.teamSize) || ""}</td>
+      <td class="dom">${esc(t.domain || "—")}</td>
+      <td class="idea">${esc(t.ideaTitle)}</td>
+      <td>${pill(stageOf(t))}</td>
+      <td>${payCell(t)}</td>
+      <td>${t.teamId ? `<span class="tid">${esc(t.teamId)}</span>` : `<span class="tid none">—</span>`}</td>
+      <td><div class="acts">${actions(t)}</div></td>
+    </tr>`; }).join("");
+  $$("#rows tr").forEach(tr => {
+    tr.onclick = e => { if (e.target.closest("[data-stop]")) return; const a = e.target.closest("[data-act]"); if (a) review(tr.dataset.id, a.dataset.act); else openDrawer(tr.dataset.id); };
+    tr.onkeydown = e => { if (e.key === "Enter" && e.target === tr) openDrawer(tr.dataset.id); };
+  });
+  if (openId) fillDrawer(teams.find(t => t.id === openId));
+}
+
+// Rejections need a second click within 4 s (in-page confirm; no browser dialogs)
+let pending = null;
+function confirm2(key, msg){ if (pending === key) { pending = null; return true; } pending = key; toast(msg); setTimeout(() => { if (pending === key) pending = null; }, 4000); return false; }
+
+async function review(id, action){
+  const t = teams.find(x => x.id === id); if (!t) return;
+  if (action === "reject" && !confirm2(id + action, `Click Reject again to confirm rejecting ${t.teamName}`)) return;
+  if (action === "pay_reject" && !confirm2(id + action, `Click Reject pay again to send ${t.teamName} back to payment`)) return;
+  const note = action === "pay_reject" ? ($("#payNote")?.value.trim() || "") : undefined;
+  try {
+    const { team } = await api("/api/manage/review", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ id, action, note }) });
+    teams = teams.map(x => x.id === id ? team : x); render();
+    toast({ approve:`${team.teamName} selected · they can now pay`, reject:`${team.teamName} rejected`, reset:`${team.teamName} moved back to review`,
+      pay_verify:`Payment verified · ${team.teamName} is ${team.teamId}`, pay_reject:`${team.teamName}'s payment rejected · they'll be asked to pay again` }[action]);
+  } catch (e) { if (e.auth) { showLogin(); toast("Your session expired. Sign in again."); } else toast(e.message); }
+}
+
+/* detail drawer */
+function fillDrawer(t){
+  if (!t) return;
+  const st = stageOf(t), P = t.payment || {};
+  $("#dTitle").textContent = t.teamName;
+  const p = $("#dPill"); p.className = "pill " + st; p.innerHTML = "<i></i>" + STAGE[st];
+  const proofUrl = "/api/manage/payment-proof?id=" + encodeURIComponent(t.id);
+  $("#dBody").innerHTML = `
+    ${t.teamId ? `<div class="idbox"><div><small>TEAM ID</small><b>${esc(t.teamId)}</b></div><button type="button" id="copyId">Copy</button></div>` : ""}
+    <div class="kv">
+      <span>Domain</span><div>${esc(t.domain || "—")}</div>
+      <span>Idea title</span><div>${esc(t.ideaTitle)}</div>
+      <span>Team size</span><div>${Number(t.teamSize)} members</div>
+      <span>Reference</span><div>${esc(t.ref || "")}</div>
+      <span>Submitted</span><div>${esc(fmtDate(t.createdAt))}</div>
+      <span>Abstract</span><div>${esc(t.abstract?.fileName)} · ${Math.max(1, Math.round((t.abstract?.size || 0)/1024))} KB</div>
+      ${t.reviewedAt ? `<span>Last action</span><div>${esc(fmtDate(t.reviewedAt))}${t.reviewedBy ? " by " + esc(t.reviewedBy) : ""}</div>` : ""}
+    </div>
+    ${t.round1 === "approved" ? `<p class="sec">Payment</p>
+    <div class="kv">
+      <span>Amount due</span><div>${inr(t.teamSize * fee)} (${t.teamSize} × ${inr(fee)})</div>
+      <span>Status</span><div>${esc({ none:"Not paid yet", submitted:"Submitted, needs verifying", verified:"Verified", rejected:"Rejected, waiting for team" }[P.status || "none"])}</div>
+      ${P.txnId ? `<span>Transaction ID</span><div>${esc(P.txnId)}</div><span>Paid</span><div>${inr(P.amount)}</div><span>Submitted</span><div>${esc(fmtDate(P.submittedAt))}</div>` : ""}
+      ${P.note ? `<span>Reason sent</span><div>${esc(P.note)}</div>` : ""}
+    </div>
+    ${P.proof && P.status !== "rejected" ? (P.proof.type === "application/pdf" ? `<a class="btn sm" style="margin-top:10px" href="${proofUrl}" target="_blank" rel="noopener">Open payment proof (PDF) ↗</a>` : `<a class="payimg" href="${proofUrl}" target="_blank" rel="noopener"><img src="${proofUrl}" alt="Payment screenshot from ${esc(t.teamName)}"></a>`) : ""}
+    ${P.status === "submitted" ? `<label class="sec" for="payNote" style="display:block">Reason if rejecting the payment (shown to the team)</label><input class="note" id="payNote" maxlength="200" placeholder="e.g. Amount doesn't match, or transaction ID not found">` : ""}` : ""}
+    <p class="sec">Team details</p>
+    ${t.members.map((m,i) => `<div class="mem"><b>${esc(m.name)}${i === 0 ? "<em>LEADER</em>" : ""}</b><small>${esc(m.email)}</small><small>${esc(m.year)} year · ${esc(m.college)}</small></div>`).join("")}`;
+  const c = $("#copyId"); if (c) c.onclick = () => navigator.clipboard.writeText(t.teamId).then(() => toast("Team ID copied"), () => toast(t.teamId));
+  const B = (label, act, cls = "") => `<button class="btn ${cls}" type="button" data-dact="${act}">${label}</button>`;
+  const foot = [`<a class="btn" href="/api/manage/abstract?id=${encodeURIComponent(t.id)}" target="_blank" rel="noopener">Abstract PDF ↗</a>`];
+  if (st === "under_review") foot.push(B("Approve","approve","ok"), B("Reject","reject","no"));
+  if (st === "selected") foot.push(B("Back to review","reset"), B("Reject","reject","no"));
+  if (st === "to_verify") foot.push(B("Verify payment","pay_verify","ok"), B("Reject payment","pay_reject","no"));
+  if (st === "rejected") foot.push(B("Approve","approve","ok"), B("Back to review","reset"));
+  $("#dFoot").innerHTML = foot.join("");
+  $$("#dFoot [data-dact]").forEach(b => b.onclick = () => review(t.id, b.dataset.dact));
+}
+let lastFocus = null;
+function openDrawer(id){ openId = id; lastFocus = document.activeElement; fillDrawer(teams.find(t => t.id === id)); const d = $("#drawer"); d.hidden = false; requestAnimationFrame(() => { d.classList.add("open"); $("#scrim").classList.add("open"); $("#dClose").focus(); }); }
+function closeDrawer(){ openId = null; const d = $("#drawer"); d.classList.remove("open"); $("#scrim").classList.remove("open"); setTimeout(() => { if (!openId) d.hidden = true; }, 300); lastFocus && lastFocus.focus(); }
+$("#dClose").onclick = closeDrawer; $("#scrim").onclick = closeDrawer;
+addEventListener("keydown", e => { if (e.key === "Escape" && openId) closeDrawer(); });
+
+/* filters, search, sort */
+$$("#tiles [data-f]").forEach(b => b.onclick = () => { filter = b.dataset.f; render(); });
+$("#q").oninput = render;
+$$("th [data-sort]").forEach(b => b.onclick = () => { const k = b.dataset.sort; sortDir = sortKey === k ? -sortDir : (k === "createdAt" ? -1 : 1); sortKey = k;
+  $$("th [data-sort]").forEach(x => x.textContent = x.textContent.replace(/ [↑↓]$/, "")); b.textContent += sortDir > 0 ? " ↑" : " ↓"; render(); });
+$("#refresh").onclick = async () => { if (await load()) toast("Updated"); };
+// keep the list fresh while the tab is open
+setInterval(() => { if (!document.hidden && !$("#app").hidden && !openId) load(); }, 30000);
+
+/* CSV export: one row per participant */
+$("#csv").onclick = () => {
+  const cols = ["Team ID","Stage","Team name","Reference","Team size","Domain","Idea title","Amount (INR)","Transaction ID","Payment status","Role","Name","Email","Year","College","Submitted"];
+  const cell = v => { let s = String(v ?? ""); if (/^[=+\-@]/.test(s)) s = "'" + s; return `"${s.replace(/"/g,'""')}"`; };   // guard against spreadsheet formulas
+  const lines = [cols.join(",")];
+  teams.forEach(t => t.members.forEach(m => lines.push([t.teamId || "", STAGE[stageOf(t)], t.teamName, t.ref || "", t.teamSize, t.domain || "", t.ideaTitle, t.round1 === "approved" ? t.teamSize * fee : "", t.payment?.txnId || "", t.payment?.status || "none", m.role, m.name, m.email, m.year, m.college, t.createdAt].map(cell).join(","))));
+  const url = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], { type:"text/csv" }));
+  const a = Object.assign(document.createElement("a"), { href:url, download:`hackathon2-registrations-${new Date().toISOString().slice(0,10)}.csv` });
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+who(); load();
+}
+</script>
+</body>
+</html>
