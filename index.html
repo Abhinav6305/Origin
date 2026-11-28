@@ -786,7 +786,7 @@ html,body{overflow-x:clip}
     <h2 class="plain">REELS</h2>
     <div class="rl" id="rl">
       <button class="rl-nav rl-prev" id="rlPrev" type="button" aria-label="Previous reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-      <div class="rl-track" id="rlTrack" data-lenis-prevent></div>
+      <div class="rl-track" id="rlTrack"></div>
       <button class="rl-nav rl-next" id="rlNext" type="button" aria-label="Next reel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
     <div class="rl-bar">
@@ -1036,6 +1036,14 @@ const REELS = [
       pads.push(a3.x, a3.y, .02);
     }
   }
+
+  // SPEC logo on the big chip beside the ORIGIN die (white mark on the dark package, like the ORIGIN logo)
+  { const c = chips.reduce((m,k) => k.w*k.h > m.w*m.h ? k : m, chips[0]);
+    const AR = 573/391, lw = Math.min(c.w*.78, c.h*.78*AR), lh = lw/AR;
+    const st = new THREE.TextureLoader().load("assets/spec-logo.png");
+    st.anisotropy = 4;
+    const sl = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh), new THREE.MeshBasicMaterial({ map:st, transparent:true, opacity:.95 }));
+    sl.position.set(c.x, c.y, .235); board.add(sl); }
 
   // 2) parallel bus lanes sweeping across the outer board
   for (let b=0;b<7;b++){
